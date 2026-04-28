@@ -4,6 +4,7 @@ import { PainPoints } from "@/components/sections/pain-points"
 import { ValueProposition } from "@/components/sections/value-proposition"
 import { Services } from "@/components/sections/services"
 import { WhoWeServe } from "@/components/sections/who-we-serve"
+import { PreCostIQ } from "@/components/sections/precostiq"
 import { HowItWorks } from "@/components/sections/how-it-works"
 import { AboutFounder } from "@/components/sections/about-founder"
 import { LeadMagnet } from "@/components/sections/lead-magnet"
@@ -22,6 +23,7 @@ export default function HomePage() {
         <ValueProposition />
         <Services />
         <WhoWeServe />
+        <PreCostIQ />
         <HowItWorks />
         <AboutFounder />
         <LeadMagnet />

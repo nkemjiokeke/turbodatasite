@@ -34,8 +34,7 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-8 items-start">
           {/* Logo & Tagline */}
           <div>
-            <img src="/logo-white.png" alt="TurboData Analytics" style={{height: '122px', width: 'auto'}} />
-            
+            <TurboDataLogo />
             <p className="mt-4 text-sm text-primary-foreground/70 max-w-xs">
               We find the money your business is leaving on the table.
             </p>
