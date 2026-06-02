@@ -22,7 +22,7 @@ export function AboutFounder() {
             {/* Profile Image */}
             <div className="relative z-10">
               <Image
-                src="https://i.imgur.com/sM4LmaO.jpeg"
+                src="/founder.png"
                 alt="Nkemjika (Jude) Okeke - Founder of TurboData Analytics"
                 width={420}
                 height={420}
