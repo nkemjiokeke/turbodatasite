@@ -3,20 +3,7 @@ import { Linkedin } from "lucide-react"
 
 function TurboDataLogo() {
   return (
-    <div className="flex items-center gap-2">
-      {/* Logo icon - three ascending bars */}
-      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="20" width="8" height="10" rx="2" fill="#00C8FF" />
-        <rect x="12" y="12" width="8" height="18" rx="2" fill="#00C8FF" />
-        <rect x="22" y="4" width="8" height="26" rx="2" fill="#6B2FD9" />
-      </svg>
-      {/* Wordmark */}
-      <span className="text-lg font-bold">
-        <span className="text-cyan-accent">Turbo</span>
-        <span className="text-purple-accent">Data</span>
-      </span>
-    </div>
-  )
+    <img src="/logo-white.png" alt="TurboData Analytics" style={{height: '72px', width: 'auto'}} />
 }
 
 const navLinks = [
