@@ -26,7 +26,7 @@ export function AboutFounder() {
                 alt="Nkemjika (Jude) Okeke - Founder of TurboData Analytics"
                 width={420}
                 height={420}
-                className="w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] aspect-square object-cover rounded-2xl"
+                className="w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] aspect-[3/4] object-cover rounded-2xl"
                 priority
               />
             </div>
