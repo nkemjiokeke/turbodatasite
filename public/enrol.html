@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TurboData — Enrol in the Data Analytics Cohort</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+
+<style>
+  :root {
+    --navy:   #0D1B4B;
+    --royal:  #1A3FA0;
+    --teal:   #1DA8A0;
+    --gold:   #F5A623;
+    --white:  #ffffff;
+    --off:    #F4F6FB;
+    --grey:   #6B7280;
+    --dark:   #1F2937;
+    --border: #D1D5DB;
+    --error:  #EF4444;
+    --success:#10B981;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--navy);
+    min-height: 100vh;
+    color: var(--dark);
+  }
+
+  /* ── HEADER BAND ── */
+  .site-header {
+    background: var(--navy);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { display: flex; flex-direction: column; }
+  .logo-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--white);
+    letter-spacing: -0.3px;
+  }
+  .logo-tag {
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .header-badge {
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO STRIP ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--royal) 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(29,168,160,0.08);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(245,166,35,0.07);
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.35);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--teal); }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
+
+  /* ── PRICING BANNER ── */
+  .pricing-banner {
+    background: var(--off);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--teal);
+  }
+  .price-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .price-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  .price-amount {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .price-note {
+    font-size: 10px;
+    color: var(--grey);
+  }
+  .price-option.featured .price-amount { color: var(--teal); }
+  .price-option.featured .price-tag { color: var(--teal); }
+  .price-divider {
+    width: 1px;
+    height: 48px;
+    background: var(--border);
+  }
+  .seats-badge {
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.4);
+    color: #92580A;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (max-width: 780px) {
+    .main { grid-template-columns: 1fr; }
+    .sidebar { order: -1; }
+  }
+
+  /* ── FORM CARD ── */
+  .form-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 36px 32px;
+    box-shadow: 0 4px 32px rgba(13,27,75,0.12);
+  }
+  .form-card h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .form-card .form-sub {
+    font-size: 13px;
+    color: var(--grey);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  /* Tier selector */
+  .tier-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .tier-option { display: none; }
+  .tier-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 10px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    gap: 2px;
+  }
+  .tier-label:hover { border-color: var(--teal); }
+  .tier-option:checked + .tier-label {
+    border-color: var(--teal);
+    background: rgba(29,168,160,0.06);
+  }
+  .tier-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .tier-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--teal);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .tier-note { font-size: 10px; color: var(--grey); text-align: center; }
+
+  /* Field groups */
+  .field-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .field-group.full { grid-template-columns: 1fr; }
+
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--dark);
+    letter-spacing: 0.02em;
+  }
+  .field label span { color: var(--error); }
+  .field input, .field select {
+    height: 44px;
+    padding: 0 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    color: var(--dark);
+    background: var(--white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .field input:focus, .field select:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(29,168,160,0.12);
+  }
+  .field input.error, .field select.error { border-color: var(--error); }
+  .field .err-msg {
+    font-size: 11px;
+    color: var(--error);
+    display: none;
+  }
+  .field input.error ~ .err-msg,
+  .field select.error ~ .err-msg { display: block; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin: 20px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Pay button */
+  .pay-btn {
+    width: 100%;
+    height: 52px;
+    background: var(--teal);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .pay-btn:hover { background: #18938C; }
+  .pay-btn:active { transform: scale(0.99); }
+  .pay-btn:disabled { background: var(--border); cursor: not-allowed; transform: none; }
+
+  .pay-btn .btn-amount {
+    background: rgba(255,255,255,0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .secure-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--grey);
+    margin-top: 12px;
+  }
+  .secure-note svg { flex-shrink: 0; }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+  .info-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 16px rgba(13,27,75,0.08);
+  }
+  .info-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-card h3 .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .include-list { display: flex; flex-direction: column; gap: 9px; }
+  .include-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13px;
+    color: var(--dark);
+    line-height: 1.4;
+  }
+  .include-item::before {
+    content: '✓';
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 0px;
+  }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item {
+    display: flex;
+    gap: 12px;
+    padding-bottom: 14px;
+    position: relative;
+  }
+  .tl-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 11px; top: 24px;
+    width: 1px; bottom: 0;
+    background: var(--border);
+  }
+  .tl-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .tl-dot span {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .tl-text { display: flex; flex-direction: column; gap: 1px; }
+  .tl-title { font-size: 12px; font-weight: 500; color: var(--dark); }
+  .tl-sub { font-size: 11px; color: var(--grey); }
+
+  .contact-card {
+    background: var(--navy);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .contact-card p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .contact-card a {
+    color: var(--gold);
+    font-weight: 500;
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .success-screen {
+    display: none;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 48px 32px;
+    text-align: center;
+    box-shadow: 0 4px 32px rgba(13,27,75,0.12);
+  }
+  .success-screen.show { display: block; }
+  .form-card.hide { display: none; }
+
+  .success-icon {
+    width: 64px; height: 64px;
+    background: rgba(16,185,129,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+  }
+  .success-screen h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .success-screen p {
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.6;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .success-ref {
+    background: var(--off);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin: 20px auto;
+    max-width: 320px;
+    font-size: 13px;
+    color: var(--dark);
+  }
+  .success-ref span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--teal);
+  }
+
+  /* loader spinner */
+  .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 520px) {
+    .field-group { grid-template-columns: 1fr; }
+    .hero { padding: 36px 20px 32px; }
+    .main { padding: 24px 16px 48px; }
+    .form-card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo">
+    <span class="logo-name">TurboData 🇨🇦</span>
+    <span class="logo-tag">Data · Decisions · Growth &nbsp;·&nbsp; Ontario, Canada</span>
+  </div>
+  <span class="header-badge">Cohort 2</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Application Deadline — June 30, 2026</div>
+  <h1>Data Analytics <span>Bootcamp</span></h1>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Weeks</div></div>
+    <div class="stat"><div class="stat-num">6–8</div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-num">70+</div><div class="stat-label">Interview Q&As</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Practical</div></div>
+  </div>
+</section>
+
+<!-- PRICING BANNER -->
+<div class="pricing-banner">
+  <div class="price-option featured">
+    <span class="price-tag">Early Bird · First 10 Seats</span>
+    <span class="price-amount">₦100,000</span>
+    <span class="price-note">Limited availability</span>
+  </div>
+  <div class="price-divider"></div>
+  <div class="price-option">
+    <span class="price-tag">Standard Price</span>
+    <span class="price-amount">₦200,000</span>
+    <span class="price-note">≈ $125 USD · After early bird closes</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- FORM -->
+  <div>
+    <div class="form-card" id="formCard">
+      <h2>Secure Your Seat</h2>
+      <p class="form-sub">Fill in your details below. You will be redirected to a secure Paystack checkout to complete your payment in Naira.</p>
+
+      <!-- TIER SELECTOR -->
+      <div class="tier-selector">
+        <input type="radio" name="tier" id="tierEarly" class="tier-option" value="100000" checked>
+        <label class="tier-label" for="tierEarly">
+          <span class="tier-name">Early Bird</span>
+          <span class="tier-price">₦100,000</span>
+          <span class="tier-note">First 10 seats only</span>
+        </label>
+        <input type="radio" name="tier" id="tierStandard" class="tier-option" value="200000">
+        <label class="tier-label" for="tierStandard">
+          <span class="tier-name">Standard</span>
+          <span class="tier-price">₦200,000</span>
+          <span class="tier-note">≈ $125 USD · Open enrolment</span>
+        </label>
+      </div>
+
+      <!-- PERSONAL DETAILS -->
+      <div class="section-label">Personal Details</div>
+
+      <div class="field-group">
+        <div class="field">
+          <label for="fname">Full Name <span>*</span></label>
+          <input type="text" id="fname" placeholder="e.g. Amaka Okonkwo">
+          <span class="err-msg">Please enter your full name</span>
+        </div>
+        <div class="field">
+          <label for="phone">Phone Number <span>*</span></label>
+          <input type="tel" id="phone" placeholder="e.g. 08012345678">
+          <span class="err-msg">Please enter a valid phone number</span>
+        </div>
+      </div>
+
+      <div class="field-group full">
+        <div class="field">
+          <label for="email">Email Address <span>*</span></label>
+          <input type="email" id="email" placeholder="you@example.com">
+          <span class="err-msg">Please enter a valid email address</span>
+        </div>
+      </div>
+
+      <div class="field-group full">
+        <div class="field">
+          <label for="country">Country of Origin <span>*</span></label>
+          <select id="country">
+            <option value="" disabled selected>Select your country</option>
+            <option>Nigeria</option>
+            <option>Ghana</option>
+            <option>Kenya</option>
+            <option>South Africa</option>
+            <option>Ethiopia</option>
+            <option>Tanzania</option>
+            <option>Uganda</option>
+            <option>Rwanda</option>
+            <option>Cameroon</option>
+            <option>Senegal</option>
+            <option>Côte d'Ivoire</option>
+            <option>Egypt</option>
+            <option>Canada</option>
+            <option>United Kingdom</option>
+            <option>United States</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Netherlands</option>
+            <option>Australia</option>
+            <option>Other</option>
+          </select>
+          <span class="err-msg">Please select your country</span>
+        </div>
+      </div>
+
+      <!-- BACKGROUND -->
+      <div class="section-label">Your Background</div>
+
+      <div class="field-group">
+        <div class="field">
+          <label for="occupation">Current Occupation <span>*</span></label>
+          <select id="occupation">
+            <option value="" disabled selected>Select your role</option>
+            <option>Student / Recent Graduate</option>
+            <option>Entry-Level Professional (0–2 yrs)</option>
+            <option>Mid-Level Professional (3–7 yrs)</option>
+            <option>Senior Professional (8+ yrs)</option>
+            <option>Business Owner / Entrepreneur</option>
+            <option>Career Changer</option>
+            <option>Unemployed / Job Seeking</option>
+          </select>
+          <span class="err-msg">Please select your occupation</span>
+        </div>
+        <div class="field">
+          <label for="hearAbout">How Did You Hear About Us? <span>*</span></label>
+          <select id="hearAbout">
+            <option value="" disabled selected>Select source</option>
+            <option>LinkedIn</option>
+            <option>WhatsApp</option>
+            <option>Referral from a friend</option>
+            <option>Instagram</option>
+            <option>Twitter / X</option>
+            <option>Google Search</option>
+            <option>TurboData Website</option>
+            <option>Previous cohort student</option>
+          </select>
+          <span class="err-msg">Please select how you heard about us</span>
+        </div>
+      </div>
+
+      <div class="field-group full">
+        <div class="field">
+          <label for="learnStyle">Preferred Learning Style <span>*</span></label>
+          <select id="learnStyle">
+            <option value="" disabled selected>How do you learn best?</option>
+            <option>Visual — I learn through diagrams, charts and demonstrations</option>
+            <option>Hands-on — I learn by doing exercises and building things directly</option>
+            <option>Conceptual — I need to understand the "why" before the "how"</option>
+            <option>Social — I learn better through discussion and group problem-solving</option>
+            <option>Self-paced — I prefer to revisit recordings and work at my own speed</option>
+            <option>Structured — I thrive with clear steps, checklists and frameworks</option>
+          </select>
+          <span class="err-msg">Please select your learning style</span>
+        </div>
+      </div>
+
+      <!-- PAY BUTTON -->
+      <button class="pay-btn" id="payBtn" onclick="initiatePayment()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Proceed to Payment
+        <span class="btn-amount" id="btnAmount">₦100,000</span>
+      </button>
+
+      <div class="secure-note">
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 1L1 3v4c0 3.1 2.1 5.9 5 6.9 2.9-1 5-3.8 5-6.9V3L6 1z" fill="#6B7280"/></svg>
+        Secured by Flutterwave · Nigerian card, bank transfer & USSD supported
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✓</div>
+      <h2>You're In!</h2>
+      <p>Your payment was successful. Welcome to the TurboData Data Analytics Cohort — July 2026.</p>
+      <div class="success-ref">Payment Reference: <span id="payRef">—</span></div>
+      <p style="margin-top:12px;">Check your email for your enrolment confirmation. If you don't see it within 10 minutes, check your spam folder or reach out to <strong>TurboData.td@gmail.com</strong></p>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="info-card">
+      <h3><span class="dot"></span>You Would Receive...</h3>
+      <div class="include-list">
+        <div class="include-item">8 weeks of live + async instruction</div>
+        <div class="include-item">6–8 portfolio projects across real industries</div>
+        <div class="include-item">Excel, SQL, Python, Power BI & Tableau</div>
+        <div class="include-item">Full week on AI prompting for analysts</div>
+        <div class="include-item">CV revamp & LinkedIn optimization</div>
+        <div class="include-item">Mock interviews + 70+ Q&A toolkit</div>
+        <div class="include-item">Job search strategy & career coaching</div>
+        <div class="include-item">Certificate of completion</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3><span class="dot"></span>What Happens Next</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"><span>1</span></div>
+          <div class="tl-text">
+            <span class="tl-title">Pay & confirm your seat</span>
+            <span class="tl-sub">Instant Paystack confirmation</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><span>2</span></div>
+          <div class="tl-text">
+            <span class="tl-title">Receive your welcome email</span>
+            <span class="tl-sub">Within 24 hours of payment</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><span>3</span></div>
+          <div class="tl-text">
+            <span class="tl-title">Join the student WhatsApp group</span>
+            <span class="tl-sub">Link sent in welcome email</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><span>4</span></div>
+          <div class="tl-text">
+            <span class="tl-title">Cohort kicks off July 20</span>
+            <span class="tl-sub">8 weeks of real work begins</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <p>Questions before enrolling? Reach out directly and we'll respond within a few hours.</p>
+      <a href="mailto:TurboData.td@gmail.com">TurboData.td@gmail.com</a>
+    </div>
+
+  </aside>
+</main>
+
+<script>
+  // ── Update button amount when tier changes ──
+  document.querySelectorAll('input[name="tier"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const amount = parseInt(radio.value).toLocaleString('en-NG');
+      document.getElementById('btnAmount').textContent = '₦' + amount;
+    });
+  });
+
+  // ── Validation ──
+  function validate() {
+    let valid = true;
+
+    const fields = [
+      { el: document.getElementById('fname'),      test: v => v.trim().split(' ').length >= 2 },
+      { el: document.getElementById('email'),      test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      { el: document.getElementById('phone'),      test: v => /^[0-9+\s\-]{7,15}$/.test(v.trim()) },
+      { el: document.getElementById('country'),    test: v => v !== '' },
+      { el: document.getElementById('occupation'), test: v => v !== '' },
+      { el: document.getElementById('hearAbout'),  test: v => v !== '' },
+      { el: document.getElementById('learnStyle'), test: v => v !== '' },
+    ];
+
+    fields.forEach(({ el, test }) => {
+      if (!test(el.value)) {
+        el.classList.add('error');
+        valid = false;
+      } else {
+        el.classList.remove('error');
+      }
+    });
+
+    return valid;
+  }
+
+  // ── Generate reference ──
+  function generateRef() {
+    return 'TD-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
+  }
+
+  // ── Config ──
+  const SHEETS_URL = "https://script.google.com/macros/s/AKfycbz-9pX7S5zE1RojE9ybIJoze96XF7iUlqo91R7-7CudrUCp1QoKNDkqAcf3u4jlZdM3/exec";
+  const FLW_KEY    = "FLWPUBK-9c5ae3120500509a397a1cceac74db44-X";
+
+  function initiatePayment() {
+    if (!validate()) return;
+
+    const btn = document.getElementById('payBtn');
+    btn.disabled = true;
+    btn.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Saving your details...
+    `;
+
+    const selectedTier = document.querySelector('input[name="tier"]:checked').value;
+    const fullName     = document.getElementById('fname').value.trim();
+    const email        = document.getElementById('email').value.trim();
+    const phone        = document.getElementById('phone').value.trim();
+    const country      = document.getElementById('country').value;
+    const occupation   = document.getElementById('occupation').value;
+    const heardAbout   = document.getElementById('hearAbout').value;
+    const learningStyle= document.getElementById('learnStyle').value;
+    const tierLabel    = selectedTier === '100000' ? 'Early Bird — ₦100,000' : 'Standard — ₦200,000';
+    const ref          = generateRef();
+
+    const payload = { fullName, email, phone, country, occupation, heardAbout, learningStyle, tier: tierLabel };
+
+    // Submit to Google Sheets first, then open Flutterwave regardless
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .catch(() => {})
+    .finally(() => {
+      btn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Opening secure checkout...
+      `;
+
+      FlutterwaveCheckout({
+        public_key: FLW_KEY,
+        tx_ref: ref,
+        amount: parseInt(selectedTier),
+        currency: "NGN",
+        payment_options: "card, banktransfer, ussd",
+        customer: {
+          email: email,
+          phone_number: phone,
+          name: fullName,
+        },
+        meta: {
+          country:        country,
+          occupation:     occupation,
+          heard_about:    heardAbout,
+          learning_style: learningStyle,
+          tier:           tierLabel,
+        },
+        customizations: {
+          title: "TurboData Data Analytics Cohort",
+          description: "Cohort 2 — July 20, 2026",
+          logo: "https://turbodata.co/favicon.ico",
+        },
+        callback: function(response) {
+          if (response.status === "successful" || response.status === "completed") {
+            document.getElementById('payRef').textContent = response.transaction_id;
+            document.getElementById('formCard').classList.add('hide');
+            document.getElementById('successScreen').classList.add('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            btn.disabled = false;
+            btn.innerHTML = `
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Proceed to Payment
+              <span class="btn-amount">${selectedTier === '100000' ? '₦100,000' : '₦200,000'}</span>
+            `;
+          }
+        },
+        onclose: function() {
+          btn.disabled = false;
+          btn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Proceed to Payment
+            <span class="btn-amount">${selectedTier === '100000' ? '₦100,000' : '₦200,000'}</span>
+          `;
+        }
+      });
+    });
+  }
+
+  // ── Clear error on input ──
+  document.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('error'));
+    el.addEventListener('change', () => el.classList.remove('error'));
+  });
+</script>
+</body>
+</html>
