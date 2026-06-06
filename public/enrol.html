@@ -4,28 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TurboData — Enrol in the Data Analytics Cohort</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://checkout.flutterwave.com/v3.js"></script>
 
 <style>
   :root {
-    --navy:   #0D1B4B;
-    --royal:  #1A3FA0;
-    --teal:   #1DA8A0;
-    --gold:   #F5A623;
-    --white:  #ffffff;
-    --off:    #F4F6FB;
-    --grey:   #6B7280;
-    --dark:   #1F2937;
-    --border: #D1D5DB;
-    --error:  #EF4444;
-    --success:#10B981;
+    --navy:    #08102B;
+    --royal:   #0056D2;
+    --teal:    #0056D2;
+    --cyan:    #00C8FF;
+    --purple:  #6B2FD9;
+    --white:   #ffffff;
+    --off:     #F5F7FF;
+    --grey:    #6B7280;
+    --dark:    #1A1A2E;
+    --border:  #E8ECF5;
+    --error:   #EF4444;
+    --success: #10B981;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     background: var(--navy);
     min-height: 100vh;
     color: var(--dark);
@@ -45,7 +46,7 @@
   }
   .logo { display: flex; flex-direction: column; }
   .logo-name {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 800;
     font-size: 20px;
     color: var(--white);
@@ -53,7 +54,7 @@
   }
   .logo-tag {
     font-size: 10px;
-    color: var(--teal);
+    color: var(--cyan);
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
@@ -79,7 +80,7 @@
     top: -60px; right: -60px;
     width: 260px; height: 260px;
     border-radius: 50%;
-    background: rgba(29,168,160,0.08);
+    background: rgba(0,200,255,0.08);
   }
   .hero::after {
     content: '';
@@ -87,13 +88,13 @@
     bottom: -40px; left: -40px;
     width: 180px; height: 180px;
     border-radius: 50%;
-    background: rgba(245,166,35,0.07);
+    background: rgba(107,47,217,0.07);
   }
   .hero-eyebrow {
     display: inline-block;
-    background: rgba(245,166,35,0.15);
-    border: 1px solid rgba(245,166,35,0.35);
-    color: var(--gold);
+    background: rgba(0,200,255,0.15);
+    border: 1px solid rgba(0,200,255,0.35);
+    color: var(--cyan);
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.12em;
@@ -103,14 +104,14 @@
     margin-bottom: 16px;
   }
   .hero h1 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: clamp(28px, 5vw, 42px);
     font-weight: 800;
     color: var(--white);
     line-height: 1.15;
     margin-bottom: 10px;
   }
-  .hero h1 span { color: var(--teal); }
+  .hero h1 span { color: var(--cyan); }
   .hero-sub {
     font-size: 15px;
     color: rgba(255,255,255,0.65);
@@ -126,7 +127,7 @@
   }
   .stat { text-align: center; }
   .stat-num {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 26px;
     font-weight: 800;
     color: var(--white);
@@ -165,10 +166,10 @@
     color: var(--grey);
   }
   .price-amount {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 28px;
     font-weight: 800;
-    color: var(--navy);
+    color: var(--dark);
     line-height: 1;
   }
   .price-note {
@@ -183,9 +184,9 @@
     background: var(--border);
   }
   .seats-badge {
-    background: rgba(245,166,35,0.12);
-    border: 1px solid rgba(245,166,35,0.4);
-    color: #92580A;
+    background: rgba(107,47,217,0.12);
+    border: 1px solid rgba(107,47,217,0.4);
+    color: var(--purple);
     font-size: 11px;
     font-weight: 500;
     padding: 6px 14px;
@@ -213,13 +214,13 @@
     background: var(--white);
     border-radius: 16px;
     padding: 36px 32px;
-    box-shadow: 0 4px 32px rgba(13,27,75,0.12);
+    box-shadow: 0 4px 32px rgba(8,16,43,0.12);
   }
   .form-card h2 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 20px;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--dark);
     margin-bottom: 6px;
   }
   .form-card .form-sub {
@@ -251,19 +252,19 @@
   .tier-label:hover { border-color: var(--teal); }
   .tier-option:checked + .tier-label {
     border-color: var(--teal);
-    background: rgba(29,168,160,0.06);
+    background: rgba(0,86,210,0.06);
   }
   .tier-name {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--dark);
   }
   .tier-price {
     font-size: 18px;
     font-weight: 700;
     color: var(--teal);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
   .tier-note { font-size: 10px; color: var(--grey); text-align: center; }
 
@@ -289,7 +290,7 @@
     padding: 0 14px;
     border: 1.5px solid var(--border);
     border-radius: 8px;
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     color: var(--dark);
     background: var(--white);
@@ -307,7 +308,7 @@
   }
   .field input:focus, .field select:focus {
     border-color: var(--teal);
-    box-shadow: 0 0 0 3px rgba(29,168,160,0.12);
+    box-shadow: 0 0 0 3px rgba(0,86,210,0.12);
   }
   .field input.error, .field select.error { border-color: var(--error); }
   .field .err-msg {
@@ -335,7 +336,7 @@
     height: 52px;
     background: var(--teal);
     color: var(--white);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.03em;
@@ -349,7 +350,7 @@
     justify-content: center;
     gap: 10px;
   }
-  .pay-btn:hover { background: #18938C; }
+  .pay-btn:hover { background: #0047B3; }
   .pay-btn:active { transform: scale(0.99); }
   .pay-btn:disabled { background: var(--border); cursor: not-allowed; transform: none; }
 
@@ -378,13 +379,13 @@
     background: var(--white);
     border-radius: 14px;
     padding: 24px;
-    box-shadow: 0 2px 16px rgba(13,27,75,0.08);
+    box-shadow: 0 2px 16px rgba(8,16,43,0.08);
   }
   .info-card h3 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--dark);
     margin-bottom: 14px;
     display: flex;
     align-items: center;
@@ -441,7 +442,7 @@
     font-size: 9px;
     font-weight: 700;
     color: var(--white);
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
   .tl-text { display: flex; flex-direction: column; gap: 1px; }
   .tl-title { font-size: 12px; font-weight: 500; color: var(--dark); }
@@ -459,7 +460,7 @@
     line-height: 1.5;
   }
   .contact-card a {
-    color: var(--gold);
+    color: var(--cyan);
     font-weight: 500;
     font-size: 13px;
     text-decoration: none;
@@ -472,7 +473,7 @@
     border-radius: 16px;
     padding: 48px 32px;
     text-align: center;
-    box-shadow: 0 4px 32px rgba(13,27,75,0.12);
+    box-shadow: 0 4px 32px rgba(8,16,43,0.12);
   }
   .success-screen.show { display: block; }
   .form-card.hide { display: none; }
@@ -486,10 +487,10 @@
     font-size: 28px;
   }
   .success-screen h2 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 24px;
     font-weight: 800;
-    color: var(--navy);
+    color: var(--dark);
     margin-bottom: 10px;
   }
   .success-screen p {
@@ -509,7 +510,7 @@
     color: var(--dark);
   }
   .success-ref span {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     color: var(--teal);
   }
