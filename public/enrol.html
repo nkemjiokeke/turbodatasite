@@ -526,6 +526,37 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+
+  /* ── CLOSED OUT / USD PRICING ── */
+  .price-option.closed { opacity: 0.42; position: relative; }
+  .price-option.closed .price-amount { text-decoration: line-through; color: var(--grey); font-size: 22px; }
+  .closed-badge {
+    display: inline-block;
+    background: #EF4444;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 2px;
+  }
+  .price-sub { font-size: 12px; color: var(--grey); margin-top: 1px; }
+  .tier-label-closed { opacity: 0.42; cursor: not-allowed !important; }
+  .tier-label-closed:hover { border-color: var(--border) !important; }
+  .tier-price small { font-size: 12px; font-weight: 500; color: var(--grey); margin-left: 4px; }
+  .tier-closed-badge {
+    display: inline-block;
+    background: #EF4444;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
   @media (max-width: 520px) {
     .field-group { grid-template-columns: 1fr; }
     .hero { padding: 36px 20px 32px; }
@@ -559,16 +590,18 @@
 
 <!-- PRICING BANNER -->
 <div class="pricing-banner">
-  <div class="price-option featured">
+  <div class="price-option closed">
     <span class="price-tag">Early Bird · First 10 Seats</span>
-    <span class="price-amount">₦100,000</span>
-    <span class="price-note">Limited availability</span>
+    <span class="price-amount">$63</span>
+    <span class="price-sub">₦100,000</span>
+    <span class="closed-badge">Closed Out</span>
   </div>
   <div class="price-divider"></div>
-  <div class="price-option">
+  <div class="price-option featured">
     <span class="price-tag">Standard Price</span>
-    <span class="price-amount">₦200,000</span>
-    <span class="price-note">≈ $125 USD · After early bird closes</span>
+    <span class="price-amount">$188</span>
+    <span class="price-sub">₦300,000</span>
+    <span class="price-note">Open enrolment</span>
   </div>
 </div>
 
@@ -579,21 +612,21 @@
   <div>
     <div class="form-card" id="formCard">
       <h2>Secure Your Seat</h2>
-      <p class="form-sub">Fill in your details below. You will be redirected to a secure Paystack checkout to complete your payment in Naira.</p>
+      <p class="form-sub">Fill in your details below. You will be redirected to a secure Flutterwave checkout to complete your payment in USD.</p>
 
       <!-- TIER SELECTOR -->
       <div class="tier-selector">
-        <input type="radio" name="tier" id="tierEarly" class="tier-option" value="100000" checked>
-        <label class="tier-label" for="tierEarly">
+        <input type="radio" name="tier" id="tierEarly" class="tier-option" value="63" disabled>
+        <label class="tier-label tier-label-closed" for="tierEarly">
           <span class="tier-name">Early Bird</span>
-          <span class="tier-price">₦100,000</span>
-          <span class="tier-note">First 10 seats only</span>
+          <span class="tier-price">$63 <small>₦100,000</small></span>
+          <span class="tier-closed-badge">Closed Out</span>
         </label>
-        <input type="radio" name="tier" id="tierStandard" class="tier-option" value="200000">
+        <input type="radio" name="tier" id="tierStandard" class="tier-option" value="188" checked>
         <label class="tier-label" for="tierStandard">
           <span class="tier-name">Standard</span>
-          <span class="tier-price">₦200,000</span>
-          <span class="tier-note">≈ $125 USD · Open enrolment</span>
+          <span class="tier-price">$188 <small>₦300,000</small></span>
+          <span class="tier-note">Open enrolment</span>
         </label>
       </div>
 
@@ -706,12 +739,12 @@
       <button class="pay-btn" id="payBtn" onclick="initiatePayment()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         Proceed to Payment
-        <span class="btn-amount" id="btnAmount">₦100,000</span>
+        <span class="btn-amount" id="btnAmount">$188</span>
       </button>
 
       <div class="secure-note">
         <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 1L1 3v4c0 3.1 2.1 5.9 5 6.9 2.9-1 5-3.8 5-6.9V3L6 1z" fill="#6B7280"/></svg>
-        Secured by Flutterwave · Nigerian card, bank transfer & USSD supported
+        Secured by Flutterwave · International card accepted · USD payment
       </div>
     </div>
 
@@ -788,8 +821,7 @@
   // ── Update button amount when tier changes ──
   document.querySelectorAll('input[name="tier"]').forEach(radio => {
     radio.addEventListener('change', () => {
-      const amount = parseInt(radio.value).toLocaleString('en-NG');
-      document.getElementById('btnAmount').textContent = '₦' + amount;
+      document.getElementById('btnAmount').textContent = '$' + radio.value;
     });
   });
 
@@ -846,7 +878,7 @@
     const occupation   = document.getElementById('occupation').value;
     const heardAbout   = document.getElementById('hearAbout').value;
     const learningStyle= document.getElementById('learnStyle').value;
-    const tierLabel    = selectedTier === '100000' ? 'Early Bird — ₦100,000' : 'Standard — ₦200,000';
+    const tierLabel    = 'Standard — $188 USD (₦300,000)';
     const ref          = generateRef();
 
     const payload = { fullName, email, phone, country, occupation, heardAbout, learningStyle, tier: tierLabel };
@@ -869,8 +901,8 @@
         public_key: FLW_KEY,
         tx_ref: ref,
         amount: parseInt(selectedTier),
-        currency: "NGN",
-        payment_options: "card, banktransfer, ussd",
+        currency: "USD",
+        payment_options: "card",
         customer: {
           email: email,
           phone_number: phone,
@@ -899,7 +931,7 @@
             btn.innerHTML = `
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
               Proceed to Payment
-              <span class="btn-amount">${selectedTier === '100000' ? '₦100,000' : '₦200,000'}</span>
+              <span class="btn-amount">$188</span>
             `;
           }
         },
@@ -908,7 +940,7 @@
           btn.innerHTML = `
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             Proceed to Payment
-            <span class="btn-amount">${selectedTier === '100000' ? '₦100,000' : '₦200,000'}</span>
+            <span class="btn-amount">${selectedTier === '100000' ? '$188</span>
           `;
         }
       });
