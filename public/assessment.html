@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TurboData Skills Assessment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    :root {
+      --primary: #FF6B2C;
+      --primary-dark: #e05a1e;
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c28;
+      --border: #2a2a3a;
+      --text: #f0f0f8;
+      --text-muted: #8888aa;
+      --success: #22c55e;
+      --error: #ef4444;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.3px;
+    }
+
+    .progress-bar-wrap {
+      flex: 1;
+      max-width: 300px;
+      margin: 0 28px;
+    }
+
+    .progress-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+      text-align: right;
+      letter-spacing: 0.3px;
+    }
+
+    .progress-bar {
+      height: 5px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #ff9a5c);
+      border-radius: 99px;
+      transition: width 0.4s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ── Main ── */
+    .main {
+      flex: 1;
+      padding: 52px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .screen {
+      width: 100%;
+      max-width: 680px;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Welcome ── */
+    .welcome-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,107,44,0.1);
+      border: 1px solid rgba(255,107,44,0.28);
+      border-radius: 99px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .welcome-title {
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+    }
+
+    .welcome-title span { color: var(--primary); }
+
+    .welcome-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 40px;
+      max-width: 520px;
+      font-weight: 500;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    /* ── Question ── */
+    .q-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .q-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 99px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .badge-beginner     { background: rgba(34,197,94,0.14);  color: #22c55e; }
+    .badge-intermediate { background: rgba(245,158,11,0.14); color: #f59e0b; }
+    .badge-advanced     { background: rgba(239,68,68,0.14);  color: #ef4444; }
+
+    .q-tool-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .q-number {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    .q-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.6;
+      margin-bottom: 26px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .option {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 15px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.15s;
+      text-align: left;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      line-height: 1.5;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .option:hover:not(.disabled) {
+      border-color: var(--primary);
+      background: rgba(255,107,44,0.05);
+    }
+
+    .option.correct  { border-color: var(--success); background: rgba(34,197,94,0.08); }
+    .option.wrong    { border-color: var(--error);   background: rgba(239,68,68,0.08); }
+    .option.disabled { cursor: default; }
+
+    .opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .option.correct .opt-letter { background: var(--success); border-color: var(--success); color: #fff; }
+    .option.wrong .opt-letter   { background: var(--error);   border-color: var(--error);   color: #fff; }
+
+    /* ── Nav ── */
+    .q-nav {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 26px;
+    }
+
+    /* ── Results ── */
+    .result-hero {
+      text-align: center;
+      padding: 28px 0 32px;
+    }
+
+    .score-ring {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 22px;
+      position: relative;
+    }
+
+    .score-ring svg { transform: rotate(-90deg); }
+
+    .score-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .score-text .big   { font-size: 2.2rem; color: var(--primary); line-height: 1; }
+    .score-text .small { font-size: 0.7rem; color: var(--text-muted); margin-top: 3px; font-weight: 600; letter-spacing: 0.3px; }
+
+    .result-level {
+      display: inline-block;
+      padding: 5px 18px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .result-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .result-desc {
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-size: 0.95rem;
+      font-weight: 500;
+      max-width: 480px;
+      margin: 0 auto 36px;
+    }
+
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    @media (max-width: 520px) { .breakdown-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .breakdown-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 12px;
+      text-align: center;
+    }
+
+    .breakdown-card .tool-name  { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
+    .breakdown-card .tool-score { font-size: 1.55rem; font-weight: 800; line-height: 1; }
+    .breakdown-card .tool-out   { font-size: 0.68rem; color: var(--text-muted); margin-top: 4px; font-weight: 600; }
+
+    .result-cta { text-align: center; }
+
+    /* ── Form ── */
+    .form-title { font-size: 1.45rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.3px; }
+    .form-desc  { color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 30px; font-weight: 500; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }
+
+    .form-group       { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full  { grid-column: 1 / -1; }
+    .form-label       { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.3px; text-transform: uppercase; }
+
+    .form-control {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.15s;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .form-control:focus { border-color: var(--primary); }
+    .form-control::placeholder { color: var(--text-muted); }
+    select.form-control option  { background: var(--surface2); }
+
+    .form-submit-row { margin-top: 22px; display: flex; justify-content: flex-end; }
+
+    /* ── Thank you ── */
+    .thankyou-wrap {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .thankyou-icon  { font-size: 3.5rem; margin-bottom: 20px; display: block; }
+    .thankyou-title { font-size: 1.9rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.3px; }
+    .thankyou-desc  { color: var(--text-muted); font-size: 1rem; line-height: 1.75; max-width: 460px; margin: 0 auto 32px; font-weight: 500; }
+
+    /* ── Util ── */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">TurboData</div>
+  <div class="progress-bar-wrap" id="progressWrap" style="display:none">
+    <div class="progress-label" id="progressLabel">Question 1 of 20</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+  <div style="width:80px"></div>
+</header>
+
+<main class="main">
+
+  <!-- WELCOME -->
+  <div class="screen" id="screenWelcome">
+    <div class="welcome-badge">📊 Free Skills Assessment</div>
+    <h1 class="welcome-title">Discover Your <span>Data Analytics</span> Level</h1>
+    <p class="welcome-desc">
+      20 questions across Excel, Power BI, Tableau, and Python — from beginner to advanced.
+      Get an instant skill-level report and know exactly where to focus next.
+    </p>
+    <button class="btn btn-primary" onclick="showIntroForm()">Begin Assessment →</button>
+  </div>
+
+  <!-- INTRO FORM -->
+  <div class="screen hidden" id="screenIntro">
+    <div class="welcome-badge">👋 Before you begin</div>
+    <h2 class="welcome-title" style="font-size:clamp(1.5rem,3vw,2.1rem)">Tell us who you are</h2>
+    <p class="welcome-desc">Just your name and email — so we can match your results to you.</p>
+    <form onsubmit="startQuizFromForm(event)">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:420px;">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input class="form-control" type="text" id="introName" placeholder="Ada Lovelace" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input class="form-control" type="email" id="introEmail" placeholder="ada@example.com" required />
+        </div>
+        <div style="margin-top:8px">
+          <button class="btn btn-primary" type="submit">Start the Quiz →</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- QUESTION -->
+  <div class="screen hidden" id="screenQuestion">
+    <div class="q-meta">
+      <span class="q-badge" id="qDiffBadge"></span>
+      <span class="q-tool-tag" id="qToolTag"></span>
+      <span class="q-number" id="qNumber"></span>
+    </div>
+    <p class="q-text" id="qText"></p>
+    <div class="options" id="optionsContainer"></div>
+    <div class="q-nav">
+      <button class="btn btn-primary hidden" id="btnNext" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen hidden" id="screenResults">
+    <div class="result-hero">
+      <div class="score-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="58" fill="none" stroke="#2a2a3a" stroke-width="10"/>
+          <circle cx="70" cy="70" r="58" fill="none" stroke="var(--primary)" stroke-width="10"
+            stroke-linecap="round" stroke-dasharray="364.4" id="scoreDash" stroke-dashoffset="364.4"/>
+        </svg>
+        <div class="score-text">
+          <span class="big" id="scoreDisplay">0</span>
+          <span class="small">out of 20</span>
+        </div>
+      </div>
+      <div class="result-level" id="levelBadge"></div>
+      <h2 class="result-title" id="resultTitle"></h2>
+      <p class="result-desc" id="resultDesc"></p>
+    </div>
+
+    <div class="breakdown-grid" id="breakdownGrid"></div>
+
+    <div class="result-cta">
+      <button class="btn btn-primary" onclick="showForm()">Get Your Learning Roadmap →</button>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="screen hidden" id="screenForm">
+    <h2 class="form-title">One last step 🎯</h2>
+    <p class="form-desc">
+      Tell us about yourself and we'll send you a personalised learning roadmap based on your <strong id="formScoreSummary"></strong>.
+    </p>
+
+    <form id="registrationForm" onsubmit="submitForm(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input class="form-control" type="text" id="fname" placeholder="Ada Lovelace" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input class="form-control" type="tel" id="fphone" placeholder="+1 (555) 000-0000" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input class="form-control" type="email" id="femail" placeholder="ada@example.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Country of Origin *</label>
+          <input class="form-control" type="text" id="fcountry" placeholder="e.g. Nigeria" required />
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Current Occupation *</label>
+          <select class="form-control" id="foccupation" required>
+            <option value="">-- Select --</option>
+            <option value="Student">Student</option>
+            <option value="0-1 years experience">0–1 years experience</option>
+            <option value="1-3 years experience">1–3 years experience</option>
+            <option value="3-5 years experience">3–5 years experience</option>
+            <option value="5+ years experience">5+ years experience</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">How did you hear about us? *</label>
+          <select class="form-control" id="fheard" required>
+            <option value="">-- Select --</option>
+            <option value="Social Media">Social Media</option>
+            <option value="Google Search">Google Search</option>
+            <option value="Friend / Referral">Friend / Referral</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="YouTube">YouTube</option>
+            <option value="Newsletter / Email">Newsletter / Email</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Preferred Learning Style *</label>
+          <select class="form-control" id="flearning" required>
+            <option value="">-- Select --</option>
+            <option value="Visual">Visual (videos, charts, infographics)</option>
+            <option value="Structured">Structured (step-by-step, written guides)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-submit-row">
+        <button class="btn btn-primary" type="submit" id="submitBtn">Submit & Get My Roadmap</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- THANK YOU -->
+  <div class="screen hidden" id="screenThankyou">
+    <div class="thankyou-wrap">
+      <span class="thankyou-icon">🎉</span>
+      <h2 class="thankyou-title">You're all set!</h2>
+      <p class="thankyou-desc">
+        Thanks for completing the TurboData Skills Assessment. Your personalised roadmap is on the way — our team will be in touch shortly.
+      </p>
+      <button class="btn btn-primary" onclick="location.href='/'">Back to Home →</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const QUESTIONS = [
+  { tool:"Excel",    diff:"beginner",     q:"Which Excel function returns the position number of a value within a range?", opts:["VLOOKUP","MATCH","INDEX","SEARCH"], ans:1 },
+  { tool:"Excel",    diff:"beginner",     q:"What does the SUMIF function do?", opts:["Adds all values regardless of conditions","Counts cells that meet a condition","Adds values in a range that meet a single condition","Multiplies values that meet a condition"], ans:2 },
+  { tool:"Excel",    diff:"intermediate", q:"A PivotTable field placed in the 'Values' area calculates which of the following by default for numeric data?", opts:["COUNT","AVERAGE","SUM","MAX"], ans:2 },
+  { tool:"Excel",    diff:"intermediate", q:"Which Excel feature lets you extract, transform, and load data from external sources without writing macros?", opts:["Solver","Power Query","Goal Seek","Scenario Manager"], ans:1 },
+  { tool:"Excel",    diff:"advanced",     q:"You need to look up a value where both the row and column criteria are dynamic. Which combination is most appropriate?", opts:["VLOOKUP + HLOOKUP","INDEX + MATCH + MATCH","SUMPRODUCT + IF","OFFSET + COUNTA"], ans:1 },
+  { tool:"Power BI", diff:"beginner",     q:"What language is used to write custom calculations and measures in Power BI?", opts:["SQL","Python","DAX","M"], ans:2 },
+  { tool:"Power BI", diff:"beginner",     q:"In Power BI, what is the purpose of a Slicer visual?", opts:["Split a dataset into training and test sets","Filter other visuals on the same report page","Slice data into equal buckets","Remove duplicates from a column"], ans:1 },
+  { tool:"Power BI", diff:"intermediate", q:"What is the key difference between a Calculated Column and a Measure in Power BI DAX?", opts:["Calculated Columns are stored in the model; Measures are computed on-the-fly","Measures are stored in the model; Calculated Columns are computed on-the-fly","They are identical — just different UI names","Calculated Columns can only use SUM"], ans:0 },
+  { tool:"Power BI", diff:"intermediate", q:"Which DAX function ignores all filters on a specified table or column?", opts:["CALCULATE","ALL","FILTER","REMOVEFILTERS"], ans:1 },
+  { tool:"Power BI", diff:"advanced",     q:"In Power BI, what does Row-Level Security (RLS) enforce?", opts:["Limits how many rows a table can contain","Restricts data visible to specific users based on DAX filter rules","Prevents users from editing calculated columns","Hides certain visuals from non-admin users"], ans:1 },
+  { tool:"Tableau",  diff:"beginner",     q:"In Tableau, what is a 'Dimension'?", opts:["A numeric field used for aggregation","A categorical field used to segment and partition data","A type of chart for 3-D visualisations","A calculated measure based on row count"], ans:1 },
+  { tool:"Tableau",  diff:"beginner",     q:"Which Tableau join keeps all rows from the left table and only matching rows from the right?", opts:["Inner Join","Full Outer Join","Left Join","Cross Join"], ans:2 },
+  { tool:"Tableau",  diff:"intermediate", q:"What is the difference between a Quick Filter and a Context Filter in Tableau?", opts:["Context Filters run first, creating a subset; Quick Filters run independently against the full dataset","Quick Filters run first; Context Filters run after","They are the same — Context Filter is just the older term","Context Filters only work on date fields"], ans:0 },
+  { tool:"Tableau",  diff:"intermediate", q:"A Tableau LOD expression using FIXED calculates values at:", opts:["The granularity of the current view","A granularity specified by the dimensions in the expression, independent of the view","The row level of the data source","An aggregated level using ATTR only"], ans:1 },
+  { tool:"Tableau",  diff:"advanced",     q:"When connecting Tableau to a large enterprise database, which performance best practice should you apply first?", opts:["Always use live connections for real-time accuracy","Extract data to a .hyper file and schedule incremental refreshes","Embed all calculations using LOD expressions","Increase mark labels to expose hidden nulls"], ans:1 },
+  { tool:"Python",   diff:"beginner",     q:"Which pandas method is used to read a CSV file into a DataFrame?", opts:["pd.load_csv()","pd.read_csv()","pd.open_csv()","pd.import_csv()"], ans:1 },
+  { tool:"Python",   diff:"beginner",     q:"Which of the following correctly filters a pandas DataFrame to rows where 'Sales' > 1000?", opts:["df.filter('Sales' > 1000)","df[df['Sales'] > 1000]","df.where(df.Sales, '>1000')","df.query(Sales > 1000)"], ans:1 },
+  { tool:"Python",   diff:"intermediate", q:"What does groupby().agg() allow that groupby().sum() alone cannot?", opts:["Filter groups before aggregating","Apply multiple different aggregation functions to different columns simultaneously","Sort the resulting groups alphabetically","Join two DataFrames before aggregating"], ans:1 },
+  { tool:"Python",   diff:"intermediate", q:"What is the purpose of calling plt.tight_layout() in Matplotlib?", opts:["Saves the figure at the highest DPI","Automatically adjusts subplot params to prevent labels/titles overlapping","Applies a dark theme to the figure","Enables interactive zooming in Jupyter Notebook"], ans:1 },
+  { tool:"Python",   diff:"advanced",     q:"You have a 10-million-row DataFrame under memory pressure. Which strategy BEST reduces memory without losing precision?", opts:["Convert all columns to object dtype","Downsample to 1 million rows randomly","Downcast integers (int64 → int16) and use category dtype for low-cardinality strings","Split the DataFrame into 10 separate CSV files"], ans:2 }
+];
+
+// EmailJS credentials — fill these in from emailjs.com
+const EMAILJS_PUBLIC_KEY  = "Kh9M3U3vyCpzb_xJY";
+const EMAILJS_SERVICE_ID  = "service_upeajqf";
+const EMAILJS_TEMPLATE_ID = "template_81nz5zj";
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+let currentQ = 0, userAnswers = [], score = 0, answered = false, finalLevel = "", finalScore = 0;
+let userName = "", userEmail = "";
+
+function show(id) {
+  ["screenWelcome","screenIntro","screenQuestion","screenResults","screenForm","screenThankyou"]
+    .forEach(s => document.getElementById(s).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function showIntroForm() { show("screenIntro"); }
+
+function startQuizFromForm(e) {
+  e.preventDefault();
+  userName  = document.getElementById("introName").value.trim();
+  userEmail = document.getElementById("introEmail").value.trim();
+  currentQ = 0; userAnswers = []; score = 0;
+  document.getElementById("progressWrap").style.display = "flex";
+  show("screenQuestion");
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = QUESTIONS[currentQ];
+  const pct = (currentQ / QUESTIONS.length) * 100;
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressLabel").textContent = `Question ${currentQ+1} of ${QUESTIONS.length}`;
+
+  const badge = document.getElementById("qDiffBadge");
+  badge.textContent = q.diff.charAt(0).toUpperCase() + q.diff.slice(1);
+  badge.className = "q-badge badge-" + q.diff;
+  document.getElementById("qToolTag").textContent = q.tool;
+  document.getElementById("qNumber").textContent = `${currentQ+1} / ${QUESTIONS.length}`;
+  document.getElementById("qText").textContent = q.q;
+
+  const cont = document.getElementById("optionsContainer");
+  cont.innerHTML = "";
+  ["A","B","C","D"].forEach((letter, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerHTML = `<span class="opt-letter">${letter}</span><span>${q.opts[i]}</span>`;
+    btn.onclick = () => selectAnswer(i);
+    cont.appendChild(btn);
+  });
+
+  document.getElementById("btnNext").classList.add("hidden");
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = QUESTIONS[currentQ];
+  userAnswers[currentQ] = idx;
+  if (idx === q.ans) score++;
+
+  document.querySelectorAll(".option").forEach((o, i) => {
+    o.classList.add("disabled");
+    if (i === q.ans) o.classList.add("correct");
+    if (i === idx && idx !== q.ans) o.classList.add("wrong");
+  });
+
+  document.getElementById("btnNext").classList.remove("hidden");
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= QUESTIONS.length) showResults();
+  else { show("screenQuestion"); renderQuestion(); }
+}
+
+function showResults() {
+  document.getElementById("progressFill").style.width = "100%";
+  document.getElementById("progressLabel").textContent = "Complete!";
+  finalScore = score;
+
+  let level, title, desc, colour;
+  if (score <= 7)       { level="Beginner";     colour="#22c55e"; title="Building Your Foundation";  desc="You have a solid starting point. Focus on Excel fundamentals and basic Python data manipulation before moving to BI tools."; }
+  else if (score <= 13) { level="Intermediate"; colour="#f59e0b"; title="Growing Analyst";            desc="Great work — you understand core concepts across multiple tools. Deepen your DAX skills in Power BI and explore Tableau LOD expressions to level up."; }
+  else                  { level="Advanced";      colour="#ef4444"; title="Data Professional";          desc="Impressive! You have a strong grasp of advanced techniques. Consider specialising in Python-based ML pipelines or building enterprise BI solutions."; }
+  finalLevel = level;
+
+  const circ = 364.4;
+  setTimeout(() => {
+    document.getElementById("scoreDash").style.transition = "stroke-dashoffset 1.2s ease";
+    document.getElementById("scoreDash").style.strokeDashoffset = circ - (score / 20) * circ;
+  }, 80);
+
+  document.getElementById("scoreDisplay").textContent = score;
+  const lb = document.getElementById("levelBadge");
+  lb.textContent = "🏅 " + level;
+  lb.style.cssText = `background:${colour}1a;color:${colour};border:1px solid ${colour}44`;
+  document.getElementById("resultTitle").textContent = title;
+  document.getElementById("resultDesc").textContent = desc;
+
+  const tools = ["Excel","Power BI","Tableau","Python"];
+  const ts = {}, tc = {};
+  tools.forEach(t => { ts[t]=0; tc[t]=0; });
+  QUESTIONS.forEach((q,i) => { tc[q.tool]++; if(userAnswers[i]===q.ans) ts[q.tool]++; });
+
+  const bg = document.getElementById("breakdownGrid");
+  bg.innerHTML = "";
+  tools.forEach(t => {
+    const pct = Math.round((ts[t]/tc[t])*100);
+    const c = pct>=80?"#22c55e":pct>=50?"#f59e0b":"#ef4444";
+    const card = document.createElement("div");
+    card.className = "breakdown-card";
+    card.innerHTML = `<div class="tool-name">${t}</div><div class="tool-score" style="color:${c}">${ts[t]}/${tc[t]}</div><div class="tool-out">${pct}% correct</div>`;
+    bg.appendChild(card);
+  });
+
+  // Send notification email
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    to_email:   "turbodata.td@gmail.com",
+    user_name:  userName,
+    user_email: userEmail,
+    user_score: `${finalScore}/20`,
+    user_level: finalLevel,
+  });
+
+  show("screenResults");
+}
+
+function showForm() {
+  document.getElementById("formScoreSummary").textContent = `score of ${finalScore}/20 (${finalLevel} level)`;
+  document.getElementById("fname").value  = userName;
+  document.getElementById("femail").value = userEmail;
+  show("screenForm");
+}
+
+function submitForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById("submitBtn");
+  btn.textContent = "Submitting…";
+  btn.disabled = true;
+
+  const FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSfIijWc3cMx5Jjk_mtmbKiC4Xsv2aRzMjM9-X8QHPiyjdq_-Q/formResponse";
+  const payload = new URLSearchParams({
+    "entry.NAME_ENTRY_ID":       document.getElementById("fname").value.trim(),
+    "entry.PHONE_ENTRY_ID":      document.getElementById("fphone").value.trim(),
+    "entry.EMAIL_ENTRY_ID":      document.getElementById("femail").value.trim(),
+    "entry.COUNTRY_ENTRY_ID":    document.getElementById("fcountry").value.trim(),
+    "entry.OCCUPATION_ENTRY_ID": document.getElementById("foccupation").value,
+    "entry.HEARD_ENTRY_ID":      document.getElementById("fheard").value,
+    "entry.LEARNING_ENTRY_ID":   document.getElementById("flearning").value,
+    "entry.SCORE_ENTRY_ID":      `${finalScore}/20`,
+    "entry.LEVEL_ENTRY_ID":      finalLevel,
+  });
+
+  fetch(FORM_ACTION, { method:"POST", body:payload, mode:"no-cors", headers:{"Content-Type":"application/x-www-form-urlencoded"} })
+    .finally(() => {
+      show("screenThankyou");
+      document.getElementById("progressWrap").style.display = "none";
+    });
+}
+</script>
+</body>
+</html>
