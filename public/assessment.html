@@ -581,11 +581,10 @@ const QUESTIONS = [
   { tool:"Python",   diff:"advanced",     q:"You have a 10-million-row DataFrame under memory pressure. Which strategy BEST reduces memory without losing precision?", opts:["Convert all columns to object dtype","Downsample to 1 million rows randomly","Downcast integers (int64 → int16) and use category dtype for low-cardinality strings","Split the DataFrame into 10 separate CSV files"], ans:2 }
 ];
 
-// EmailJS credentials — fill these in from emailjs.com
 const EMAILJS_PUBLIC_KEY  = "Kh9M3U3vyCpzb_xJY";
 const EMAILJS_SERVICE_ID  = "service_upeajqf";
 const EMAILJS_TEMPLATE_ID = "template_81nz5zj";
-emailjs.init(EMAILJS_PUBLIC_KEY);
+if (typeof emailjs !== "undefined") emailjs.init(EMAILJS_PUBLIC_KEY);
 
 let currentQ = 0, userAnswers = [], score = 0, answered = false, finalLevel = "", finalScore = 0;
 let userName = "", userEmail = "";
@@ -698,7 +697,7 @@ function showResults() {
   });
 
   // Send notification email
-  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+  if (typeof emailjs !== "undefined") emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
     to_email:   "turbodata.td@gmail.com",
     user_name:  userName,
     user_email: userEmail,
