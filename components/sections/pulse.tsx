@@ -17,9 +17,14 @@ export function Pulse() {
             assessment, prioritisation, and practical improvement planning.
           </p>
         </div>
-        <ButtonLink href="/contact?topic=pulse" variant="secondary" className="mt-6 shrink-0 lg:mt-0">
-          Ask to hear about updates
-        </ButtonLink>
+        <div className="mt-6 flex shrink-0 flex-col gap-3 sm:flex-row lg:mt-0">
+          <ButtonLink href="/pulse">
+            Explore the Pulse prototype
+          </ButtonLink>
+          <ButtonLink href="/contact?topic=pulse" variant="secondary">
+            Ask to hear about updates
+          </ButtonLink>
+        </div>
       </div>
     </Section>
   )
