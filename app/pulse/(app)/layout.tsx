@@ -3,8 +3,8 @@ import { PulseProvider } from "@/components/pulse/store"
 import { PulseAppShell } from "@/components/pulse/app-shell"
 
 export const metadata: Metadata = {
-  title: { template: "%s | TurboData Pulse prototype", default: "TurboData Pulse prototype" },
-  description: "An illustrative front-end prototype of TurboData Pulse using sample data.",
+  title: { template: "%s | TurboData Pulse", default: "TurboData Pulse" },
+  description: "TurboData Pulse: a guided business-performance assessment for small and medium-sized businesses.",
   robots: { index: false, follow: true },
 }
 

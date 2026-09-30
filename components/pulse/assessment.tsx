@@ -62,13 +62,11 @@ export function Assessment() {
           Assessment complete
         </h1>
         <p className="mx-auto mt-3 max-w-xl leading-relaxed text-ink-soft">
-          Thank you. In the finished product, this step calculates your score and emails you a report with priority
-          areas for improvement. This V1 prototype does not calculate or send anything — explore the sample overview
-          and findings below. Your answers are not stored anywhere outside this browser tab.
+          Thank you for completing the assessment. Your findings are ready to review.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link href="/pulse/app/overview" className={buttonStyles("primary")}>
-            View the overview
+          <Link href="/pulse/findings" className={buttonStyles("primary")}>
+            View your findings
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </Link>
           <button type="button" onClick={restart} className={buttonStyles("secondary")}>
@@ -133,11 +131,11 @@ export function Assessment() {
                 {missing && <p className="mt-1 text-sm text-[#9b1c13]">Please choose an option.</p>}
                 <div className="mt-3 space-y-2">
                   {q.options.map((opt) => {
-                    const id = `${q.id}-${opt}`.replace(/[^a-zA-Z0-9-]/g, "")
-                    const checked = answers[q.id] === opt
+                    const id = `${q.id}-${opt.label}`.replace(/[^a-zA-Z0-9-]/g, "")
+                    const checked = answers[q.id] === opt.label
                     return (
                       <label
-                        key={opt}
+                        key={opt.label}
                         htmlFor={id}
                         className={cn(
                           "flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition-colors",
@@ -148,12 +146,12 @@ export function Assessment() {
                           id={id}
                           type="radio"
                           name={q.id}
-                          value={opt}
+                          value={opt.label}
                           checked={checked}
-                          onChange={() => setAnswer(q.id, opt)}
+                          onChange={() => setAnswer(q.id, opt.label)}
                           className="h-4 w-4 accent-[#0056d2]"
                         />
-                        <span className="text-ink">{opt}</span>
+                        <span className="text-ink">{opt.label}</span>
                       </label>
                     )
                   })}
@@ -169,7 +167,7 @@ export function Assessment() {
               <ArrowLeft aria-hidden="true" className="h-4 w-4" />
               Back
             </button>
-            <Link href="/pulse/app" className={buttonStyles("secondary")}>
+            <Link href="/pulse" className={buttonStyles("secondary")}>
               Save and exit
             </Link>
           </div>
@@ -190,7 +188,7 @@ export function Assessment() {
           kept in this browser tab only.
         </p>
         <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-          Please do not enter confidential or personal information. This prototype only asks multiple-choice questions.
+          Please do not enter confidential or personal information. This assessment only asks multiple-choice questions.
         </p>
       </aside>
     </div>

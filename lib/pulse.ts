@@ -1,7 +1,39 @@
-// Sample data for the TurboData Pulse front-end prototype.
-// Everything here is illustrative. Nothing is connected to real business systems.
+// Configuration for the TurboData Pulse assessment: questions, categories, scoring
+// tiers, and the content used to build both the in-app findings pages and the
+// emailed PDF report from a single source.
 
-export type Question = { id: string; text: string; options: string[] }
+export type Category =
+  | "Financial visibility"
+  | "Profitability and margin"
+  | "Workflow efficiency"
+  | "Labour and capacity"
+  | "Reporting maturity"
+  | "Automation readiness"
+
+export const categories: Category[] = [
+  "Financial visibility",
+  "Profitability and margin",
+  "Workflow efficiency",
+  "Labour and capacity",
+  "Reporting maturity",
+  "Automation readiness",
+]
+
+export function categorySlug(category: Category): string {
+  return category.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+}
+
+export function categoryFromSlug(slug: string): Category | undefined {
+  return categories.find((c) => categorySlug(c) === slug)
+}
+
+export type QuestionOption = { label: string; score: number }
+export type Question = {
+  id: string
+  category: Category | null
+  text: string
+  options: QuestionOption[]
+}
 export type AssessmentSection = { id: string; title: string; intro: string; questions: Question[] }
 
 export const assessmentSections: AssessmentSection[] = [
@@ -12,6 +44,7 @@ export const assessmentSections: AssessmentSection[] = [
     questions: [
       {
         id: "challenge",
+        category: null,
         text: "What is the greatest challenge facing the business right now?",
         options: [
           "Profitability is unclear.",
@@ -20,12 +53,13 @@ export const assessmentSections: AssessmentSection[] = [
           "Reports are difficult to prepare.",
           "Too much work depends on one person.",
           "We do not know what to automate.",
-        ],
+        ].map((label) => ({ label, score: 0 })),
       },
       {
         id: "size",
+        category: null,
         text: "Approximately how many people work in the business?",
-        options: ["1–4", "5–19", "20–49", "50–100", "More than 100"],
+        options: ["1–4", "5–19", "20–49", "50–100", "More than 100"].map((label) => ({ label, score: 0 })),
       },
     ],
   },
@@ -36,13 +70,54 @@ export const assessmentSections: AssessmentSection[] = [
     questions: [
       {
         id: "profitability",
+        category: "Financial visibility",
         text: "How clearly can you see profitability by product, service, job, or customer?",
-        options: ["Very clearly", "Somewhat clearly", "Not very clearly", "We currently cannot separate profitability"],
+        options: [
+          { label: "Very clearly", score: 90 },
+          { label: "Somewhat clearly", score: 65 },
+          { label: "Not very clearly", score: 35 },
+          { label: "We currently cannot separate profitability", score: 10 },
+        ],
       },
       {
         id: "month-end",
+        category: "Financial visibility",
         text: "How soon after month-end do you usually know your results?",
-        options: ["Within a week", "Two to three weeks", "More than a month", "Only at year-end"],
+        options: [
+          { label: "Within a week", score: 90 },
+          { label: "Two to three weeks", score: 65 },
+          { label: "More than a month", score: 35 },
+          { label: "Only at year-end", score: 10 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "margin",
+    title: "Profitability and margin",
+    intro: "Whether profit can be seen and is holding up by service or product line.",
+    questions: [
+      {
+        id: "margin-visibility",
+        category: "Profitability and margin",
+        text: "How clearly can you see profit margin by service line or product line?",
+        options: [
+          { label: "Very clearly", score: 90 },
+          { label: "Somewhat clearly", score: 65 },
+          { label: "Not very clearly", score: 35 },
+          { label: "We do not track this", score: 10 },
+        ],
+      },
+      {
+        id: "pricing-review",
+        category: "Profitability and margin",
+        text: "Have you reviewed pricing against true cost in the last 12 months?",
+        options: [
+          { label: "Yes, thoroughly", score: 90 },
+          { label: "Yes, partly", score: 60 },
+          { label: "Not recently", score: 30 },
+          { label: "Never", score: 10 },
+        ],
       },
     ],
   },
@@ -53,13 +128,24 @@ export const assessmentSections: AssessmentSection[] = [
     questions: [
       {
         id: "waiting",
+        category: "Workflow efficiency",
         text: "How often does work wait on missing information or approvals?",
-        options: ["Rarely", "Sometimes", "Often", "Almost always"],
+        options: [
+          { label: "Rarely", score: 90 },
+          { label: "Sometimes", score: 60 },
+          { label: "Often", score: 30 },
+          { label: "Almost always", score: 10 },
+        ],
       },
       {
         id: "documented",
+        category: "Workflow efficiency",
         text: "Are your main workflows documented?",
-        options: ["Yes, and they are followed", "Partly", "No, they rely on experience"],
+        options: [
+          { label: "Yes, and they are followed", score: 90 },
+          { label: "Partly", score: 55 },
+          { label: "No, they rely on experience", score: 20 },
+        ],
       },
     ],
   },
@@ -70,13 +156,23 @@ export const assessmentSections: AssessmentSection[] = [
     questions: [
       {
         id: "time-tracking",
+        category: "Labour and capacity",
         text: "How well do you know how staff time is spent?",
-        options: ["Tracked by job or task", "Rough estimates", "Not tracked"],
+        options: [
+          { label: "Tracked by job or task", score: 90 },
+          { label: "Rough estimates", score: 50 },
+          { label: "Not tracked", score: 15 },
+        ],
       },
       {
         id: "key-person",
+        category: "Labour and capacity",
         text: "How much important work depends on one person?",
-        options: ["Very little", "Some", "A lot"],
+        options: [
+          { label: "Very little", score: 90 },
+          { label: "Some", score: 50 },
+          { label: "A lot", score: 15 },
+        ],
       },
     ],
   },
@@ -87,13 +183,25 @@ export const assessmentSections: AssessmentSection[] = [
     questions: [
       {
         id: "review",
+        category: "Reporting maturity",
         text: "How often does management review key business performance information?",
-        options: ["Daily", "Weekly", "Monthly", "Irregularly", "We do not have a consistent review process"],
+        options: [
+          { label: "Daily", score: 95 },
+          { label: "Weekly", score: 80 },
+          { label: "Monthly", score: 50 },
+          { label: "Irregularly", score: 25 },
+          { label: "We do not have a consistent review process", score: 5 },
+        ],
       },
       {
         id: "preparation",
+        category: "Reporting maturity",
         text: "How are management reports usually prepared?",
-        options: ["Automatically from our systems", "Partly manual", "Mostly manual, from several sources"],
+        options: [
+          { label: "Automatically from our systems", score: 90 },
+          { label: "Partly manual", score: 50 },
+          { label: "Mostly manual, from several sources", score: 15 },
+        ],
       },
     ],
   },
@@ -104,247 +212,177 @@ export const assessmentSections: AssessmentSection[] = [
     questions: [
       {
         id: "re-entry",
+        category: "Automation readiness",
         text: "How much time is spent re-entering the same information into different systems?",
-        options: ["Almost none", "A few hours a week", "Many hours a week", "Not sure"],
+        options: [
+          { label: "Almost none", score: 90 },
+          { label: "A few hours a week", score: 55 },
+          { label: "Many hours a week", score: 20 },
+          { label: "Not sure", score: 40 },
+        ],
       },
       {
         id: "tools",
+        category: "Automation readiness",
         text: "How fully are your current software tools used?",
-        options: ["Fully", "Partly", "Mostly for the basics", "Not sure"],
+        options: [
+          { label: "Fully", score: 90 },
+          { label: "Partly", score: 55 },
+          { label: "Mostly for the basics", score: 30 },
+          { label: "Not sure", score: 40 },
+        ],
       },
     ],
   },
 ]
 
-export type Tone = "amber" | "blue" | "red" | "teal" | "slate"
+export type Tier = "attention" | "developing" | "strong"
 
-export const overviewAreas: { area: string; note: string }[] = [
-  {
-    area: "Financial visibility",
-    note: "Profitability is not yet separated by product, service, job, or customer, making it hard to see where margin is being made or lost.",
-  },
-  {
-    area: "Workflow efficiency",
-    note: "Work sometimes waits on missing information or approvals, and not all workflows are documented.",
-  },
-  {
-    area: "Reporting maturity",
-    note: "Management information is currently reviewed monthly and assembled manually, which can delay decisions.",
-  },
-  {
-    area: "Automation readiness",
-    note: "Several hours a week are spent re-entering the same information across different systems.",
-  },
-]
-
-export type Finding = {
-  slug: string
-  title: string
-  category: string
-  priority: "High" | "Medium"
-  status: string
-  summary: string
+export function scoreToTier(score: number): Tier {
+  if (score < 45) return "attention"
+  if (score < 75) return "developing"
+  return "strong"
 }
 
-export const sampleFindings: Finding[] = [
-  {
-    slug: "weekly-reporting",
-    title: "Improve weekly management reporting",
-    category: "Reporting maturity",
-    priority: "High",
-    status: "Not started",
-    summary: "Management information is reviewed monthly and assembled manually, which may delay decisions.",
-  },
-  {
-    slug: "service-line-margins",
-    title: "Review service-line margins",
-    category: "Profitability",
-    priority: "High",
-    status: "Backlog",
-    summary: "Profitability is not currently separated by service line, so low-margin work may be hidden.",
-  },
-  {
-    slug: "manual-reporting",
-    title: "Reduce manual reporting and data gathering",
-    category: "Automation readiness",
-    priority: "Medium",
-    status: "In progress",
-    summary: "Several hours a week are spent collecting and re-entering information from different systems.",
-  },
-]
-
-export const actionStatuses = ["Backlog", "In progress", "Blocked", "Complete"] as const
-export type ActionStatus = (typeof actionStatuses)[number]
-
-export type Action = {
-  id: string
-  title: string
-  description?: string
-  owner: string
-  due: string // ISO date
-  status: ActionStatus
-  measure: string
+export type CategoryContent = {
+  explanation: string
+  whyItMatters: string
+  examineNext: string
+  processImprovementNote: string
+  automationNote: string
+  tiers: Record<Tier, { whatAnswersSuggest: string; firstStep: string }>
 }
 
-export const sampleActions: Action[] = [
-  {
-    id: "a1",
-    title: "Review service-line margins",
-    description: "Understand profitability by service line and identify low-margin work.",
-    owner: "Jude",
-    due: "2026-02-12",
-    status: "Backlog",
-    measure: "Margin report by service line",
-  },
-  {
-    id: "a2",
-    title: "Build weekly scorecard",
-    description: "Create and distribute a weekly management report.",
-    owner: "Alex",
-    due: "2026-02-16",
-    status: "In progress",
-    measure: "Report sent by Friday noon",
-  },
-  {
-    id: "a3",
-    title: "Waiting for accounting export",
-    description: "Get the monthly export from the accounting system.",
-    owner: "Alex",
-    due: "2026-02-18",
-    status: "Blocked",
-    measure: "Data received and validated",
-  },
-  {
-    id: "a4",
-    title: "Review automation options",
-    description: "Look at tools to reduce manual reporting and data gathering.",
-    owner: "Jude",
-    due: "2026-02-25",
-    status: "Complete",
-    measure: "Options list and next steps",
-  },
-]
-
-export type FindingDetail = {
-  slug: string
-  title: string
-  category: string
-  priority: "High" | "Medium"
-  status: string
-  observed: string
-  impacts: string[]
-  recommendedIntro: string
-  indicators: string[]
-  target: string
-  planAction: Omit<Action, "id">
-}
-
-export const findingDetails: Record<string, FindingDetail> = {
-  "weekly-reporting": {
-    slug: "weekly-reporting",
-    title: "Improve weekly management reporting",
-    category: "Reporting maturity",
-    priority: "High",
-    status: "Not started",
-    observed:
-      "Management information is currently reviewed monthly and assembled manually from multiple sources. This may delay decisions about profitability, costs, and operational capacity.",
-    impacts: [
-      "Slower response to cost changes.",
-      "Limited visibility into service-line margins.",
-      "More time spent preparing reports.",
-      "Greater reliance on informal updates.",
-    ],
-    recommendedIntro: "Create a weekly management scorecard containing:",
-    indicators: ["Revenue.", "Gross margin.", "Outstanding invoices.", "Jobs completed.", "Labour hours or utilisation."],
-    target: "Produce a consistent weekly report by Friday at noon.",
-    planAction: {
-      title: "Improve weekly management reporting",
-      description: "Create a weekly management scorecard with five core indicators.",
-      owner: "Unassigned",
-      due: "2026-03-02",
-      status: "Backlog",
-      measure: "Consistent weekly report by Friday at noon",
+export const categoryContent: Record<Category, CategoryContent> = {
+  "Financial visibility": {
+    explanation: "Financial visibility is how quickly and clearly you can see where the business is making and losing money.",
+    whyItMatters:
+      "Without clear, timely financial information, pricing, staffing, and spending decisions are often made on instinct rather than evidence.",
+    examineNext: "Look at how long it currently takes from month-end close to having usable financial reports in hand.",
+    processImprovementNote:
+      "A monthly close checklist and a standard month-end reporting pack can shorten the time between month-end and knowing your results.",
+    automationNote:
+      "Connecting your accounting system to a simple reporting tool can remove manual copy-and-paste work from monthly reporting.",
+    tiers: {
+      attention: {
+        whatAnswersSuggest:
+          "Your answers suggest profitability is difficult to see clearly, and results may take a long time to reach you after month-end.",
+        firstStep: "A useful next step could be agreeing a short list of numbers to review every month, even before full financials are ready.",
+      },
+      developing: {
+        whatAnswersSuggest:
+          "Your answers suggest some financial visibility exists, but results may still take longer than ideal to reach decision-makers.",
+        firstStep: "A useful next step could be tightening the month-end process so results are available within a week.",
+      },
+      strong: {
+        whatAnswersSuggest: "Your answers suggest financial visibility is already a relative strength for the business.",
+        firstStep: "A useful next step could be documenting the current process so it stays reliable as the business grows.",
+      },
     },
   },
-  "service-line-margins": {
-    slug: "service-line-margins",
-    title: "Review service-line margins",
-    category: "Profitability",
-    priority: "High",
-    status: "Backlog",
-    observed:
-      "Profitability is currently reviewed at the overall business level rather than by service line. This can hide individual services or jobs that are running at a low margin or a loss.",
-    impacts: [
-      "Low-margin work may be priced the same as high-margin work.",
-      "Pricing decisions are made without a clear view of true cost.",
-      "Staff and equipment may be allocated to lower-value work.",
-      "Overall margin can decline gradually with no obvious single cause.",
-    ],
-    recommendedIntro: "Build a service-line margin report that separates:",
-    indicators: [
-      "Revenue by service line.",
-      "Direct cost by service line.",
-      "Resulting gross margin by service line.",
-      "Volume or hours delivered by service line.",
-    ],
-    target: "Produce a first service-line margin report within 30 days.",
-    planAction: {
-      title: "Review service-line margins",
-      description: "Understand profitability by service line and identify low-margin work.",
-      owner: "Unassigned",
-      due: "2026-03-09",
-      status: "Backlog",
-      measure: "Margin report by service line",
+  "Profitability and margin": {
+    explanation: "Profitability and margin is whether you can see which products, services, jobs, or customers are actually making money.",
+    whyItMatters: "Without this, low-margin or loss-making work can continue unnoticed, quietly reducing overall profitability.",
+    examineNext: "Look at whether revenue and direct cost can currently be separated for your top few services or products.",
+    processImprovementNote: "Building a simple margin report by service or product line is often the fastest way to see where profit is being made or lost.",
+    automationNote: "Job-costing or project-tracking software already in use may be able to produce this breakdown with minimal extra setup.",
+    tiers: {
+      attention: {
+        whatAnswersSuggest: "Your answers suggest margin is not currently visible by service or product line, so low-margin work may be hidden.",
+        firstStep: "A useful next step could be separating revenue and direct cost for your largest service or product lines first.",
+      },
+      developing: {
+        whatAnswersSuggest: "Your answers suggest some margin visibility exists, but pricing may not have been reviewed against true cost recently.",
+        firstStep: "A useful next step could be a focused review comparing current pricing to updated cost information.",
+      },
+      strong: {
+        whatAnswersSuggest: "Your answers suggest margin visibility is already a relative strength for the business.",
+        firstStep: "A useful next step could be reviewing pricing on a regular schedule to keep it aligned with cost.",
+      },
     },
   },
-  "manual-reporting": {
-    slug: "manual-reporting",
-    title: "Reduce manual reporting and data gathering",
-    category: "Automation readiness",
-    priority: "Medium",
-    status: "In progress",
-    observed:
-      "Several hours a week are spent collecting and re-entering information from different systems to prepare reports and reconcile records.",
-    impacts: [
-      "Staff time is spent on data entry rather than analysis.",
-      "Manual re-entry increases the chance of errors.",
-      "Reporting is delayed until data gathering is complete.",
-      "Existing software tools may be underused.",
-    ],
-    recommendedIntro: "Review automation options that could reduce manual work, such as:",
-    indicators: [
-      "Connecting systems that already support data export or import.",
-      "Using existing report or export features more fully.",
-      "Standardising a single source for each type of information.",
-      "Automating recurring, repetitive steps.",
-    ],
-    target: "Identify at least one manual process to automate or simplify within 30 days.",
-    planAction: {
-      title: "Reduce manual reporting and data gathering",
-      description: "Review automation options to cut down manual data gathering and re-entry.",
-      owner: "Unassigned",
-      due: "2026-03-09",
-      status: "Backlog",
-      measure: "Automation options list and one process automated",
+  "Workflow efficiency": {
+    explanation: "Workflow efficiency is how smoothly work moves from one step to the next without waiting or repetition.",
+    whyItMatters: "Work that stalls on missing information or undocumented steps tends to take longer and depend heavily on specific people.",
+    examineNext: "Look at the workflow that most often causes delay or rework, from start to finish.",
+    processImprovementNote: "Mapping the two or three workflows that cause the most delay is often enough to find where approvals or information are missing.",
+    automationNote: "Simple automated reminders or approval routing may reduce the time work spends waiting.",
+    tiers: {
+      attention: {
+        whatAnswersSuggest: "Your answers suggest work often waits on missing information or approvals, and workflows may not be documented.",
+        firstStep: "A useful next step could be documenting your single most time-consuming workflow, start to finish.",
+      },
+      developing: {
+        whatAnswersSuggest: "Your answers suggest workflows are partly documented, with occasional delays waiting on information.",
+        firstStep: "A useful next step could be reviewing where approvals most often cause delay.",
+      },
+      strong: {
+        whatAnswersSuggest: "Your answers suggest workflow efficiency is already a relative strength for the business.",
+        firstStep: "A useful next step could be revisiting documented workflows periodically as the business changes.",
+      },
     },
   },
-}
-
-export const statusTone: Record<string, Tone> = {
-  Backlog: "slate",
-  "Not started": "slate",
-  "In progress": "blue",
-  Blocked: "red",
-  Complete: "teal",
-  High: "red",
-  Medium: "amber",
-}
-
-export function formatDue(iso: string) {
-  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  })
+  "Labour and capacity": {
+    explanation: "Labour and capacity is how well the business understands where staff time goes, and how dependent it is on any one person.",
+    whyItMatters: "Without this visibility, it is hard to plan staffing, and the business may be exposed if a key person is unavailable.",
+    examineNext: "Look at which tasks depend on a single person, and what would happen if they were unavailable for a week.",
+    processImprovementNote: "Simple timesheets by job or task, even at a rough level, can reveal where hours are really being spent.",
+    automationNote: "Existing scheduling or job-management software may already capture time data that is not yet being used for reporting.",
+    tiers: {
+      attention: {
+        whatAnswersSuggest: "Your answers suggest staff time is not closely tracked, and a lot of important work may depend on one person.",
+        firstStep: "A useful next step could be documenting what a key person does day-to-day, as a starting point for cross-training.",
+      },
+      developing: {
+        whatAnswersSuggest: "Your answers suggest a general sense of where time goes, though tracking is still rough.",
+        firstStep: "A useful next step could be tracking time by job for a two-week sample period.",
+      },
+      strong: {
+        whatAnswersSuggest: "Your answers suggest labour and capacity visibility is already a relative strength for the business.",
+        firstStep: "A useful next step could be using existing time data to plan capacity ahead of busy periods.",
+      },
+    },
+  },
+  "Reporting maturity": {
+    explanation: "Reporting maturity is how consistently management information is prepared, reviewed, and used to make decisions.",
+    whyItMatters: "Reporting that is irregular or heavily manual tends to arrive too late to influence the decisions it should inform.",
+    examineNext: "Look at who currently prepares management reports, and how long that takes each month.",
+    processImprovementNote: "A short, standard weekly or monthly reporting pack, reviewed on a fixed schedule, is often the single highest-leverage change available.",
+    automationNote: "Reports assembled manually from several sources are often good candidates for a simple automated export or dashboard.",
+    tiers: {
+      attention: {
+        whatAnswersSuggest: "Your answers suggest there is not yet a consistent process for reviewing business performance information.",
+        firstStep: "A useful next step could be agreeing five numbers to review at a fixed time each week.",
+      },
+      developing: {
+        whatAnswersSuggest: "Your answers suggest reporting happens, but it may still be irregular or partly manual.",
+        firstStep: "A useful next step could be moving reporting onto a fixed weekly or monthly schedule.",
+      },
+      strong: {
+        whatAnswersSuggest: "Your answers suggest reporting maturity is already a relative strength for the business.",
+        firstStep: "A useful next step could be reviewing whether the current report still covers what matters most.",
+      },
+    },
+  },
+  "Automation readiness": {
+    explanation: "Automation readiness is how much repetitive, manual work could be reduced using tools the business already has or could easily add.",
+    whyItMatters: "Manual re-entry and underused software tend to quietly consume hours every week that could go toward higher-value work.",
+    examineNext: "Look at where the same information is currently typed into more than one system.",
+    processImprovementNote: "Listing the two or three most repetitive tasks in the business is a practical starting point for identifying what to automate first.",
+    automationNote: "Reviewing whether existing systems already support the export or import features you need can often remove manual re-entry without new software.",
+    tiers: {
+      attention: {
+        whatAnswersSuggest: "Your answers suggest a meaningful amount of time is spent re-entering the same information across systems.",
+        firstStep: "A useful next step could be identifying the single most repeated manual task and mapping where the information comes from.",
+      },
+      developing: {
+        whatAnswersSuggest: "Your answers suggest some manual re-entry remains, alongside tools that may not be fully used.",
+        firstStep: "A useful next step could be reviewing the features of your current software before considering anything new.",
+      },
+      strong: {
+        whatAnswersSuggest: "Your answers suggest automation readiness is already a relative strength for the business.",
+        firstStep: "A useful next step could be revisiting this area periodically as new tools become available.",
+      },
+    },
+  },
 }

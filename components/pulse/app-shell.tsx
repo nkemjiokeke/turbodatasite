@@ -3,16 +3,14 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ArrowLeft, ClipboardList, FileSearch, LayoutDashboard, ListChecks, Menu, RotateCcw, X } from "lucide-react"
-import { PulseWordmark, ProgressBar, SampleNotice } from "@/components/pulse/ui"
+import { ArrowLeft, ClipboardList, FileSearch, Menu, RotateCcw, X } from "lucide-react"
+import { PulseWordmark, ProgressBar } from "@/components/pulse/ui"
 import { usePulse } from "@/components/pulse/store"
 import { cn } from "@/lib/utils"
 
 const nav = [
-  { href: "/pulse/app/overview", label: "Overview", icon: LayoutDashboard },
-  { href: "/pulse/app/assessment", label: "Assessment", icon: ClipboardList },
-  { href: "/pulse/app/findings", label: "Findings", icon: FileSearch },
-  { href: "/pulse/app/action-plan", label: "Action plan", icon: ListChecks },
+  { href: "/pulse/assessment", label: "Assessment", icon: ClipboardList },
+  { href: "/pulse/findings", label: "Findings", icon: FileSearch },
 ]
 
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
@@ -63,7 +61,7 @@ function SidebarFooter({ onNavigate }: { onNavigate?: () => void }) {
         {confirming ? (
           <div role="alertdialog" aria-label="Confirm reset" className="rounded-lg border border-white/15 bg-white/5 p-3">
             <p className="text-xs leading-relaxed text-on-dark-muted">
-              Reset all prototype progress? Your answers and actions will be cleared. This cannot be undone.
+              Start over? Your answers will be cleared. This cannot be undone.
             </p>
             <div className="mt-2.5 flex gap-2">
               <button
@@ -71,7 +69,7 @@ function SidebarFooter({ onNavigate }: { onNavigate?: () => void }) {
                 onClick={handleReset}
                 className="rounded-md bg-white/15 px-2.5 py-1.5 text-xs font-semibold text-white hover:bg-white/25"
               >
-                Yes, reset
+                Yes, start over
               </button>
               <button
                 type="button"
@@ -89,7 +87,7 @@ function SidebarFooter({ onNavigate }: { onNavigate?: () => void }) {
             className="inline-flex items-center gap-2 text-sm font-medium text-on-dark-muted hover:text-white hover:underline"
           >
             <RotateCcw aria-hidden="true" className="h-4 w-4" />
-            Reset prototype
+            Start over
           </button>
         )}
       </div>
@@ -134,7 +132,7 @@ export function PulseAppShell({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar */}
       <aside className="on-dark hidden w-64 shrink-0 flex-col justify-between bg-navy px-4 py-6 lg:sticky lg:top-0 lg:flex lg:h-screen">
         <div>
-          <Link href="/pulse/app" className="block px-2">
+          <Link href="/pulse/assessment" className="block px-2">
             <PulseWordmark dark className="text-lg" />
           </Link>
           <nav aria-label="Pulse" className="mt-8">
@@ -147,7 +145,7 @@ export function PulseAppShell({ children }: { children: React.ReactNode }) {
       {/* Mobile top bar */}
       <div className="on-dark sticky top-0 z-40 bg-navy lg:hidden">
         <div className="flex h-16 items-center justify-between px-4">
-          <Link href="/pulse/app" onClick={close}>
+          <Link href="/pulse/assessment" onClick={close}>
             <PulseWordmark dark />
           </Link>
           <button
@@ -173,9 +171,6 @@ export function PulseAppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="border-b border-line bg-white px-4 py-3 sm:px-8">
-          <SampleNotice />
-        </div>
         <main id="pulse-main" tabIndex={-1} className="mx-auto max-w-6xl px-4 py-8 outline-none sm:px-8 sm:py-10">
           {children}
         </main>
