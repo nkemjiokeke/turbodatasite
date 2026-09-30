@@ -118,11 +118,23 @@ export const assessmentSections: AssessmentSection[] = [
 
 export type Tone = "amber" | "blue" | "red" | "teal" | "slate"
 
-export const sampleMetrics: { area: string; score: number; label: string; tone: Tone }[] = [
-  { area: "Financial visibility", score: 42, label: "Needs attention", tone: "amber" },
-  { area: "Workflow efficiency", score: 58, label: "Developing", tone: "blue" },
-  { area: "Reporting maturity", score: 31, label: "Priority area", tone: "red" },
-  { area: "Automation readiness", score: 67, label: "Good opportunity", tone: "teal" },
+export const overviewAreas: { area: string; note: string }[] = [
+  {
+    area: "Financial visibility",
+    note: "Profitability is not yet separated by product, service, job, or customer, making it hard to see where margin is being made or lost.",
+  },
+  {
+    area: "Workflow efficiency",
+    note: "Work sometimes waits on missing information or approvals, and not all workflows are documented.",
+  },
+  {
+    area: "Reporting maturity",
+    note: "Management information is currently reviewed monthly and assembled manually, which can delay decisions.",
+  },
+  {
+    area: "Automation readiness",
+    note: "Several hours a week are spent re-entering the same information across different systems.",
+  },
 ]
 
 export type Finding = {

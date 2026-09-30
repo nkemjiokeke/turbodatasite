@@ -44,7 +44,7 @@ const areas = [
 
 const features = [
   { title: "Guided assessment", icon: ClipboardList, body: "Six short sections of multiple-choice questions, with a progress indicator throughout." },
-  { title: "Executive overview", icon: LayoutDashboard, body: "Scores for key performance areas and the single highest-priority opportunity." },
+  { title: "Executive overview", icon: LayoutDashboard, body: "A summary of key areas and the single highest-priority opportunity, with your full report emailed to you in the finished product." },
   { title: "Priority findings", icon: FileSearch, body: "What was observed, the potential business impact, the recommended action, and a 30-day target." },
   { title: "Action-plan tracker", icon: ListChecks, body: "Actions with owners, due dates, status, and the measure that shows progress." },
 ]
@@ -58,6 +58,9 @@ export default function PulsePage() {
             <p className="mb-4 inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-teal">
               <PulseMark className="h-5 w-5" />
               TurboData Pulse
+              <span className="rounded-full border border-teal/30 bg-teal-soft px-2 py-0.5 text-xs font-semibold text-teal">
+                V1
+              </span>
             </p>
             <h1 id="pulse-hero-title" className="text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
               Know what to improve before you invest in fixing everything.
@@ -77,7 +80,7 @@ export default function PulsePage() {
             </div>
             <p className="mt-6 inline-flex items-center gap-2 rounded-lg border border-[#f3d28a] bg-[#fdf3dc] px-3 py-1.5 text-sm font-medium text-[#7a4a00]">
               <Info aria-hidden="true" className="h-4 w-4" />
-              Illustrative prototype using sample data.
+              Illustrative V1 prototype using sample data.
             </p>
           </div>
         </Container>

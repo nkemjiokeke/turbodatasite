@@ -62,8 +62,9 @@ export function Assessment() {
           Assessment complete
         </h1>
         <p className="mx-auto mt-3 max-w-xl leading-relaxed text-ink-soft">
-          Thank you. In this prototype, the overview shows sample scores and findings. Your answers are not scored or
-          stored anywhere outside this browser tab.
+          Thank you. In the finished product, this step calculates your score and emails you a report with priority
+          areas for improvement. This V1 prototype does not calculate or send anything — explore the sample overview
+          and findings below. Your answers are not stored anywhere outside this browser tab.
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Link href="/pulse/app/overview" className={buttonStyles("primary")}>

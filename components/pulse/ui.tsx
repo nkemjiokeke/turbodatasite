@@ -41,11 +41,19 @@ export function PulseWordmark({ dark = false, className }: { dark?: boolean; cla
       <span className={dark ? "text-white" : "text-ink"}>
         TurboData <span className={dark ? "text-[#8fb8ff]" : "text-brand"}>Pulse</span>
       </span>
+      <span
+        className={cn(
+          "rounded-full border px-1.5 py-0.5 text-[0.65rem] font-semibold tracking-wide",
+          dark ? "border-white/25 text-on-dark-muted" : "border-line text-ink-soft",
+        )}
+      >
+        V1
+      </span>
     </span>
   )
 }
 
-export function SampleNotice({ children = "Illustrative prototype using sample data.", className }: { children?: React.ReactNode; className?: string }) {
+export function SampleNotice({ children = "Illustrative V1 prototype using sample data.", className }: { children?: React.ReactNode; className?: string }) {
   return (
     <p className={cn("inline-flex items-center gap-2 rounded-lg border border-[#f3d28a] bg-[#fdf3dc] px-3 py-1.5 text-sm font-medium text-[#7a4a00]", className)}>
       <Info aria-hidden="true" className="h-4 w-4 shrink-0" />
