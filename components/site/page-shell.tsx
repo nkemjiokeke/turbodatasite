@@ -43,9 +43,11 @@ export function PageHero({
 export function CtaBand({
   title = "Start with a clearer view of the problem.",
   body = "Tell us what is happening in the business and what you want to improve. We will help you decide whether a diagnostic, analysis, process review, or ongoing support is the right starting point.",
+  cta = site.primaryCta,
 }: {
   title?: string
   body?: string
+  cta?: { href: string; label: string }
 }) {
   return (
     <section aria-labelledby="cta-band-title" className="on-dark bg-navy py-16 sm:py-20">
@@ -58,8 +60,8 @@ export function CtaBand({
             <p className="mt-4 text-lg leading-relaxed text-on-dark-muted">{body}</p>
           </div>
           <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
-            <ButtonLink href={site.primaryCta.href} variant="light">
-              {site.primaryCta.label}
+            <ButtonLink href={cta.href} variant="light">
+              {cta.label}
             </ButtonLink>
           </div>
         </div>

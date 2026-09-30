@@ -20,6 +20,7 @@
   --brand-soft: #e6effc;
   --teal: #0f766e;
   --teal-soft: #dcefeb;
+  --pulse-yellow: #f2b01e;
   --on-dark: #f7f6f2;
   --on-dark-muted: #b9c3d3;
 
@@ -63,6 +64,7 @@
   --color-brand-soft: var(--brand-soft);
   --color-teal: var(--teal);
   --color-teal-soft: var(--teal-soft);
+  --color-pulse-yellow: var(--pulse-yellow);
   --color-on-dark: var(--on-dark);
   --color-on-dark-muted: var(--on-dark-muted);
 
