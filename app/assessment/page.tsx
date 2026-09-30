@@ -1,12 +1,13 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = { title: "Data Analytics Skills Assessment" }
+
 export default function AssessmentPage() {
   return (
-    <html>
-      <body style={{ margin: 0, padding: 0 }}>
-        <iframe
-          src="/assessment.html"
-          style={{ width: '100%', height: '100vh', border: 'none' }}
-        />
-      </body>
-    </html>
+    <iframe
+      src="/assessment.html"
+      title="TurboData data analytics skills assessment"
+      className="fixed inset-0 h-full w-full border-0"
+    />
   )
 }

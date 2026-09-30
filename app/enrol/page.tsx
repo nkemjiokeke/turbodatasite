@@ -1,12 +1,13 @@
+import type { Metadata } from "next"
+
+export const metadata: Metadata = { title: "Enrol in the Data Analytics Cohort" }
+
 export default function EnrolPage() {
   return (
-    <html>
-      <body style={{ margin: 0, padding: 0 }}>
-        <iframe
-          src="/enrol.html"
-          style={{ width: '100%', height: '100vh', border: 'none' }}
-        />
-      </body>
-    </html>
+    <iframe
+      src="/enrol.html"
+      title="Enrol in the TurboData Data Analytics Cohort"
+      className="fixed inset-0 h-full w-full border-0"
+    />
   )
 }

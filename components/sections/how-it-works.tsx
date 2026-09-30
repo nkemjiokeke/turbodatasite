@@ -1,59 +1,62 @@
-const steps = [
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+import { Section, SectionHeading } from "@/components/site/primitives"
+
+export const steps = [
   {
-    number: 1,
     title: "Diagnose",
-    description: "We audit your business data, operations, and financials to find what's actually happening beneath the surface.",
+    body: "We review the business context, data, workflows, and performance questions that matter most.",
   },
   {
-    number: 2,
-    title: "Strategize",
-    description: "We build a clear, prioritized plan tied to measurable outcomes — revenue gain, cost reduction, or both.",
+    title: "Prioritise",
+    body: "We identify the most important issues, quantify where possible, and separate symptoms from root causes.",
   },
   {
-    number: 3,
-    title: "Execute",
-    description: "We work alongside your team to implement changes, measure results, and adjust in real time.",
+    title: "Improve",
+    body: "We create a practical action plan and support implementation, reporting, automation, or ongoing review.",
   },
 ]
 
+export function StepList({ dark = false }: { dark?: boolean }) {
+  return (
+    <ol className="grid gap-5 md:grid-cols-3">
+      {steps.map((s, i) => (
+        <li
+          key={s.title}
+          className={dark ? "rounded-xl border border-navy-line bg-navy-2 p-6" : "rounded-xl border border-line bg-white p-6"}
+        >
+          <span
+            aria-hidden="true"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand font-heading font-bold text-white"
+          >
+            {i + 1}
+          </span>
+          <h3 className={`mt-5 text-xl font-bold ${dark ? "text-on-dark" : "text-ink"}`}>
+            <span className="sr-only">Step {i + 1}: </span>
+            {s.title}
+          </h3>
+          <p className={`mt-2 leading-relaxed ${dark ? "text-on-dark-muted" : "text-ink-soft"}`}>{s.body}</p>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
 export function HowItWorks() {
   return (
-    <section className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="text-[12px] font-medium uppercase tracking-[0.1em] text-cyan-accent mb-4">
-            The Process
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-near-black text-balance">
-            Three steps from confusion to clarity.
-          </h2>
-        </div>
-
-        <div className="max-w-4xl mx-auto">
-          <div className="relative">
-            {/* Connecting Line - Desktop */}
-            <div className="hidden md:block absolute top-8 left-[calc(16.67%-0.5rem)] right-[calc(16.67%-0.5rem)] h-0.5 bg-border-light" />
-            
-            <div className="grid md:grid-cols-3 gap-8 md:gap-6">
-              {steps.map((step, index) => (
-                <div key={index} className="relative text-center">
-                  {/* Number Circle */}
-                  <div className="w-16 h-16 rounded-full bg-primary-blue text-primary-foreground font-bold text-xl flex items-center justify-center mx-auto relative z-10">
-                    {step.number}
-                  </div>
-                  
-                  <h3 className="mt-6 font-semibold text-xl text-near-black">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+    <Section tone="paper" labelledBy="how-title">
+      <SectionHeading id="how-title" title="A practical path from insight to improvement" />
+      <div className="mt-12">
+        <StepList />
       </div>
-    </section>
+      <p className="mt-8 max-w-3xl border-l-4 border-teal pl-4 leading-relaxed text-ink-soft">
+        Not every business needs a major software project. Sometimes the highest-value improvement is a clearer process,
+        better reporting, or a management routine that happens consistently.
+      </p>
+      <Link href="/how-it-works" className="mt-6 inline-flex items-center gap-1.5 font-semibold text-brand hover:underline">
+        How an engagement works, with FAQs
+        <ArrowRight aria-hidden="true" className="h-4 w-4" />
+      </Link>
+    </Section>
   )
 }

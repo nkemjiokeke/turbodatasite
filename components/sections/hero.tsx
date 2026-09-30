@@ -1,114 +1,110 @@
-import Link from "next/link"
-import { TrendingUp, TrendingDown, Percent } from "lucide-react"
+import { MapPin } from "lucide-react"
+import { ButtonLink, Container } from "@/components/site/primitives"
+import { site } from "@/lib/site"
 
-function DashboardIllustration() {
+/** Abstract illustration: a business workflow with one leaking handoff, and a margin view by line.
+ *  Deliberately contains no figures or results. */
+function OperatingViewVisual() {
+  const stages = ["Quote", "Schedule", "Deliver", "Invoice"]
   return (
-    <div className="relative w-full max-w-md mx-auto lg:mx-0">
-      {/* Metric Cards */}
-      <div className="flex flex-col gap-4">
-        {/* Revenue Card */}
-        <div className="bg-dark-card/80 backdrop-blur-sm rounded-xl p-4 border border-dark-border shadow-lg transform hover:-translate-y-1 transition-transform">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-cyan-accent text-xs font-medium uppercase tracking-wider">Revenue</p>
-              <p className="text-2xl font-bold text-primary-foreground mt-1">+24.8%</p>
-            </div>
-            <div className="w-12 h-12 rounded-lg bg-cyan-accent/20 flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-cyan-accent" />
-            </div>
-          </div>
-        </div>
+    <svg
+      viewBox="0 0 480 400"
+      role="img"
+      aria-label="Illustration of a business workflow from quote to invoice, with one handoff highlighted as a source of lost margin, above a simple comparison of margin by business line."
+      className="h-auto w-full"
+    >
+      <rect x="0.5" y="0.5" width="479" height="399" rx="16" fill="#ffffff" stroke="#e2dfd6" />
 
-        {/* Cost Card */}
-        <div className="bg-dark-card/80 backdrop-blur-sm rounded-xl p-4 border border-dark-border shadow-lg transform translate-x-8 hover:-translate-y-1 transition-transform">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-purple-accent text-xs font-medium uppercase tracking-wider">Costs</p>
-              <p className="text-2xl font-bold text-primary-foreground mt-1">-18.3%</p>
-            </div>
-            <div className="w-12 h-12 rounded-lg bg-purple-accent/20 flex items-center justify-center">
-              <TrendingDown className="w-6 h-6 text-purple-accent" />
-            </div>
-          </div>
-        </div>
+      {/* Workflow */}
+      <text x="28" y="44" fill="#3d4a5c" fontSize="13" fontWeight="600" fontFamily="inherit">
+        How work moves through the business
+      </text>
+      {stages.map((label, i) => {
+        const x = 28 + i * 110
+        return (
+          <g key={label}>
+            <rect x={x} y="64" width="94" height="52" rx="10" fill="#f7f6f2" stroke="#cfccc2" />
+            <text x={x + 47} y="95" textAnchor="middle" fill="#0f1b2d" fontSize="13" fontWeight="600" fontFamily="inherit">
+              {label}
+            </text>
+            {i < stages.length - 1 && (
+              <path
+                d={`M${x + 94} 90 H${x + 110}`}
+                stroke={i === 1 ? "#b45309" : "#0f766e"}
+                strokeWidth="2"
+                strokeDasharray={i === 1 ? "4 3" : undefined}
+              />
+            )}
+          </g>
+        )
+      })}
+      {/* Leak marker between Schedule and Deliver */}
+      <g>
+        <path d="M240 92 V154" stroke="#b45309" strokeWidth="2" strokeDasharray="3 3" fill="none" />
+        <circle cx="240" cy="160" r="5" fill="#b45309" />
+        <text x="254" y="164" fill="#8a3d06" fontSize="12" fontWeight="600" fontFamily="inherit">
+          Rework and waiting time
+        </text>
+      </g>
 
-        {/* Efficiency Card */}
-        <div className="bg-dark-card/80 backdrop-blur-sm rounded-xl p-4 border border-dark-border shadow-lg transform hover:-translate-y-1 transition-transform">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-primary-foreground/70 text-xs font-medium uppercase tracking-wider">Efficiency</p>
-              <p className="text-2xl font-bold text-primary-foreground mt-1">94.2%</p>
-            </div>
-            <div className="w-12 h-12 rounded-lg bg-primary-blue/20 flex items-center justify-center">
-              <Percent className="w-6 h-6 text-primary-blue" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      {/* Margin by line */}
+      <line x1="28" y1="196" x2="452" y2="196" stroke="#e2dfd6" />
+      <text x="28" y="228" fill="#3d4a5c" fontSize="13" fontWeight="600" fontFamily="inherit">
+        Margin by business line
+      </text>
+      {[
+        { label: "Line A", w: 300, c: "#0f766e" },
+        { label: "Line B", w: 220, c: "#0f766e" },
+        { label: "Line C", w: 150, c: "#0f766e" },
+        { label: "Line D", w: 70, c: "#b45309" },
+      ].map((row, i) => (
+        <g key={row.label}>
+          <text x="28" y={262 + i * 34} fill="#0f1b2d" fontSize="12" fontFamily="inherit">
+            {row.label}
+          </text>
+          <rect x="88" y={250 + i * 34} width="340" height="16" rx="4" fill="#f1efe9" />
+          <rect x="88" y={250 + i * 34} width={row.w} height="16" rx="4" fill={row.c} opacity={row.c === "#b45309" ? 1 : 0.85} />
+        </g>
+      ))}
+      <text x="28" y="388" fill="#6b7280" fontSize="11" fontFamily="inherit">
+        Illustrative only
+      </text>
+    </svg>
   )
 }
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-r from-primary-blue to-[#0A1A4A]">
-      {/* Abstract data pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.08]">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-          <path d="M0 200 Q100 150 200 180 T400 160 T600 200 T800 170 T1000 190 T1200 160 T1400 200" 
-                fill="none" stroke="white" strokeWidth="2" className="animate-pulse" />
-          <path d="M0 250 Q150 200 300 230 T600 210 T900 250 T1200 220 T1400 240" 
-                fill="none" stroke="white" strokeWidth="1.5" />
-        </svg>
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
-          <div className="text-center lg:text-left">
-            <p className="text-[12px] font-medium uppercase tracking-[0.1em] text-cyan-accent mb-4">
-              Business Analytics for SMBs
+    <section aria-labelledby="hero-title" className="border-b border-line bg-paper">
+      <Container className="py-14 sm:py-20 lg:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          <div>
+            <p className="mb-4 text-sm font-semibold tracking-wide text-teal">
+              Business analytics and operations improvement for Ontario SMEs
             </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold leading-[1.15] text-primary-foreground max-w-[600px] mx-auto lg:mx-0">
-              <span className="block">Most businesses are surviving.</span>
-              <span className="block">Very few are actually winning.</span>
+            <h1 id="hero-title" className="text-4xl font-bold leading-[1.08] text-ink sm:text-5xl lg:text-[3.5rem]">
+              Find the profit hidden inside your business.
             </h1>
-            <p className="mt-6 text-lg text-primary-foreground/85 max-w-[520px] mx-auto lg:mx-0 leading-relaxed">
-              Every week you operate without clear data, you make decisions that cost you. TurboData Analytics turns your business numbers into a competitive weapon — so you stop guessing and start growing.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
+              TurboData helps established businesses uncover margin leaks, fix inefficient processes, and make better
+              operating decisions using the data they already have.
             </p>
-            
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Link
-                href="#lead-magnet"
-                className="inline-flex items-center justify-center px-8 py-3.5 bg-primary-foreground text-primary-blue font-bold text-base rounded-full hover:bg-primary-foreground/90 transition-colors"
-              >
-                Get Your Free Profit Leak Audit →
-              </Link>
-              <Link
-                href="#impact"
-                className="inline-flex items-center justify-center px-8 py-3.5 border-2 border-primary-foreground text-primary-foreground font-bold text-base rounded-full hover:bg-primary-foreground/10 transition-colors"
-              >
-                See Our Client Impact
-              </Link>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href={site.primaryCta.href}>{site.primaryCta.label}</ButtonLink>
+              <ButtonLink href="/#services" variant="secondary">
+                See How We Help
+              </ButtonLink>
             </div>
-
-            <p className="mt-6 text-sm text-primary-foreground/60">
-              Free resource · No credit card · No obligation
+            <p className="mt-6 flex items-start gap-2 text-sm text-ink-soft">
+              <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
+              {site.serviceArea}
             </p>
           </div>
-
-          {/* Right Illustration - Desktop Only */}
-          <div className="hidden lg:block">
-            <DashboardIllustration />
+          <div className="mx-auto w-full max-w-md lg:max-w-none">
+            <OperatingViewVisual />
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   )
 }

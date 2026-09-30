@@ -1,37 +1,41 @@
-import { Navbar } from "@/components/navbar"
+import type { Metadata } from "next"
+import { PageShell } from "@/components/site/page-shell"
+import { pageMetadata } from "@/lib/seo"
 import { Hero } from "@/components/sections/hero"
-import { PainPoints } from "@/components/sections/pain-points"
-import { ValueProposition } from "@/components/sections/value-proposition"
+import { Problems } from "@/components/sections/problems"
+import { Outcomes } from "@/components/sections/outcomes"
 import { Services } from "@/components/sections/services"
-import { WhoWeServe } from "@/components/sections/who-we-serve"
-import { PreCostIQ } from "@/components/sections/precostiq"
+import { WhoWeHelp } from "@/components/sections/who-we-help"
 import { HowItWorks } from "@/components/sections/how-it-works"
+import { WhatToExpect } from "@/components/sections/what-to-expect"
 import { AboutFounder } from "@/components/sections/about-founder"
-import { LeadMagnet } from "@/components/sections/lead-magnet"
-import { ImpactTeaser } from "@/components/sections/impact-teaser"
-import { Resources } from "@/components/sections/resources"
-import { DiscoveryCall } from "@/components/sections/discovery-call"
-import { Footer } from "@/components/footer"
+import { Pulse } from "@/components/sections/pulse"
+import { ContactSection } from "@/components/sections/contact-section"
+
+export const metadata: Metadata = {
+  ...pageMetadata({
+    title: "Business Analytics Consulting for Ontario SMEs",
+    description:
+      "TurboData helps Ontario SMEs uncover profit leaks, improve inefficient processes, analyse business performance, and make better operating decisions.",
+    path: "/",
+    socialTitle: "TurboData Analytics | Find the profit hidden inside your business",
+  }),
+  title: { absolute: "Business Analytics Consulting for Ontario SMEs | TurboData Analytics" },
+}
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main>
-        <Hero />
-        <PainPoints />
-        <ValueProposition />
-        <Services />
-        <WhoWeServe />
-        <PreCostIQ />
-        <HowItWorks />
-        <AboutFounder />
-        <LeadMagnet />
-        <ImpactTeaser />
-        <Resources />
-        <DiscoveryCall />
-      </main>
-      <Footer />
-    </div>
+    <PageShell>
+      <Hero />
+      <Problems />
+      <Outcomes />
+      <Services />
+      <WhoWeHelp />
+      <HowItWorks />
+      <WhatToExpect />
+      <AboutFounder />
+      <Pulse />
+      <ContactSection />
+    </PageShell>
   )
 }
