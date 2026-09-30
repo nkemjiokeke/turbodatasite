@@ -39,7 +39,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               </h2>
               <ul className="mt-5 space-y-4 text-ink-soft">
                 <li className="flex gap-3">
-                  <Mail aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-teal" />
+                  <Mail aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <span>
                     <span className="block font-semibold text-ink">Email</span>
                     <a href={`mailto:${site.email}`} className="break-all text-brand hover:underline">
@@ -48,14 +48,14 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <MapPin aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-teal" />
+                  <MapPin aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <span>
                     <span className="block font-semibold text-ink">Based in</span>
                     {site.location}
                   </span>
                 </li>
                 <li className="flex gap-3">
-                  <Video aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-teal" />
+                  <Video aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <span>
                     <span className="block font-semibold text-ink">Service area</span>
                     On-site support in Sarnia-Lambton. Remote support for businesses elsewhere in Ontario.

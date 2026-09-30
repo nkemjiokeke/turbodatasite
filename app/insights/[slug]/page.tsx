@@ -58,7 +58,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                   All insights
                 </Link>
               </nav>
-              <p className="text-sm font-semibold text-teal">{a.category}</p>
+              <p className="text-sm font-semibold text-brand">{a.category}</p>
               <h1 className="mt-3 text-3xl font-bold leading-tight text-ink sm:text-4xl lg:text-[2.75rem]">{a.title}</h1>
               <p className="mt-5 text-lg leading-relaxed text-ink-soft">{a.summary}</p>
               <p className="mt-6 text-sm text-ink-soft">

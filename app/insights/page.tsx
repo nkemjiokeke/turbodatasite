@@ -30,7 +30,7 @@ export default function InsightsPage() {
           {sorted.map((a) => (
             <li key={a.slug}>
               <article className="relative flex h-full flex-col rounded-xl border border-line bg-white p-6 transition-colors focus-within:ring-3 focus-within:ring-brand hover:border-ink/30">
-                <p className="text-sm font-semibold text-teal">{a.category}</p>
+                <p className="text-sm font-semibold text-brand">{a.category}</p>
                 <h3 className="mt-3 text-xl font-bold leading-snug text-ink">
                   <Link href={`/insights/${a.slug}`} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
                     {a.title}

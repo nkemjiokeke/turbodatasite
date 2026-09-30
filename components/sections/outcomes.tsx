@@ -26,7 +26,7 @@ export function Outcomes() {
       <ol className="mt-12 grid gap-x-10 gap-y-8 md:grid-cols-2">
         {outcomes.map((o, i) => (
           <li key={o.title} className="flex gap-5 border-t border-navy-line pt-6">
-            <span aria-hidden="true" className="font-heading text-sm font-bold text-[#8fd3c9]">
+            <span aria-hidden="true" className="font-heading text-sm font-bold text-[#8fb8ff]">
               {String(i + 1).padStart(2, "0")}
             </span>
             <div>

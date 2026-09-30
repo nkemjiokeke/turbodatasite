@@ -36,7 +36,7 @@ export function WhatToExpect() {
         <ul className="divide-y divide-line border-y border-line">
           {expectations.map((e) => (
             <li key={e.title} className="flex gap-4 py-5">
-              <Check aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-teal" />
+              <Check aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
               <div>
                 <h3 className="font-bold text-ink">{e.title}</h3>
                 <p className="mt-1 leading-relaxed text-ink-soft">{e.body}</p>

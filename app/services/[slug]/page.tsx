@@ -41,7 +41,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <div className="max-w-3xl">
             <div className="flex items-center gap-3">
               <IconBadge icon={s.icon} />
-              <p className="text-sm font-semibold tracking-wide text-teal">{s.title}</p>
+              <p className="text-sm font-semibold tracking-wide text-brand">{s.title}</p>
             </div>
             <h1 className="mt-5 text-4xl font-bold leading-[1.12] text-ink sm:text-5xl">{s.headline}</h1>
             <p className="mt-5 text-lg leading-relaxed text-ink-soft sm:text-xl">{s.summary}</p>
@@ -63,7 +63,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <ul className="mt-4 space-y-3">
               {s.symptoms.map((item) => (
                 <li key={item} className="flex gap-3 leading-relaxed text-ink-soft">
-                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
                   {item}
                 </li>
               ))}
@@ -79,7 +79,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <ul className="mt-4 space-y-3">
               {s.examines.map((item) => (
                 <li key={item} className="flex gap-3 leading-relaxed text-ink-soft">
-                  <Check aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-teal" />
+                  <Check aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   {item}
                 </li>
               ))}
@@ -91,7 +91,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <ul className="mt-4 space-y-3">
               {s.deliverables.map((item) => (
                 <li key={item} className="flex gap-3 rounded-lg border border-line bg-white p-4 font-medium text-ink">
-                  <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-teal" />
+                  <Check aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
                   {item}
                 </li>
               ))}
@@ -116,7 +116,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <div>
             <h2 className="text-2xl font-bold text-ink">Typical timeline</h2>
             <p className="mt-4 flex gap-3 leading-relaxed text-ink-soft">
-              <Clock aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-teal" />
+              <Clock aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
               {s.timeline} A proposed timeline is agreed before work begins.
             </p>
             <h2 className="mt-10 text-2xl font-bold text-ink">Next step</h2>

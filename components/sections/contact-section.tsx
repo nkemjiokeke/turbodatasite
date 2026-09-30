@@ -18,7 +18,7 @@ export function ContactSection() {
           </p>
           <ul className="mt-8 space-y-3 text-ink-soft">
             <li className="flex gap-3">
-              <Mail aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-teal" />
+              <Mail aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
               <span>
                 Prefer email? Write to{" "}
                 <a href={`mailto:${site.email}`} className="break-all font-semibold text-brand hover:underline">
@@ -27,7 +27,7 @@ export function ContactSection() {
               </span>
             </li>
             <li className="flex gap-3">
-              <MapPin aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-teal" />
+              <MapPin aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
               <span>{site.serviceArea}</span>
             </li>
           </ul>

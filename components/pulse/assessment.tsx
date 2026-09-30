@@ -57,7 +57,7 @@ export function Assessment() {
   if (completed) {
     return (
       <div className="rounded-xl border border-line bg-white p-8 text-center shadow-[0_1px_3px_rgba(15,27,45,0.06)] sm:p-12">
-        <CheckCircle2 aria-hidden="true" className="mx-auto h-12 w-12 text-teal" />
+        <CheckCircle2 aria-hidden="true" className="mx-auto h-12 w-12 text-brand" />
         <h1 ref={headingRef} tabIndex={-1} className="mt-4 text-3xl font-bold text-ink outline-none">
           Assessment complete
         </h1>
@@ -100,7 +100,7 @@ export function Assessment() {
                 i === step
                   ? "border-brand bg-brand-soft text-[#0a3f94]"
                   : i < step
-                    ? "border-[#b5ddd6] bg-teal-soft text-[#0b5a53]"
+                    ? "border-[#bcd3f5] bg-brand-soft text-[#0a3f94]"
                     : "border-line text-ink-soft",
               )}
             >
@@ -110,7 +110,7 @@ export function Assessment() {
           ))}
         </ol>
 
-        <p className="mt-8 text-sm font-semibold text-teal">Business Performance Assessment</p>
+        <p className="mt-8 text-sm font-semibold text-brand">Business Performance Assessment</p>
         <h1 ref={headingRef} tabIndex={-1} className="mt-1 text-2xl font-bold text-ink outline-none sm:text-3xl">
           {section.title}
         </h1>

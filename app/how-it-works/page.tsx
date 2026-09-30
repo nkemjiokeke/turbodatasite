@@ -68,7 +68,7 @@ export default function HowItWorksPage() {
               <ul className="mt-3 space-y-2.5">
                 {s.points.map((p) => (
                   <li key={p} className="flex gap-3 leading-relaxed text-ink-soft">
-                    <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
+                    <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
                     {p}
                   </li>
                 ))}
@@ -76,7 +76,7 @@ export default function HowItWorksPage() {
             </div>
           ))}
         </div>
-        <p className="mt-12 max-w-3xl border-l-4 border-teal pl-4 leading-relaxed text-ink-soft">
+        <p className="mt-12 max-w-3xl border-l-4 border-brand pl-4 leading-relaxed text-ink-soft">
           Not every business needs a major software project. Sometimes the highest-value improvement is a clearer
           process, better reporting, or a management routine that happens consistently.
         </p>

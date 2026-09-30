@@ -101,7 +101,7 @@ export function ContactForm({ idPrefix = "contact", initialChallenge = "" }: { i
   if (status === "success") {
     return (
       <div ref={resultRef} tabIndex={-1} role="status" className="rounded-xl border border-line bg-white p-8 text-center outline-none">
-        <CheckCircle2 aria-hidden="true" className="mx-auto h-10 w-10 text-teal" />
+        <CheckCircle2 aria-hidden="true" className="mx-auto h-10 w-10 text-brand" />
         <h3 className="mt-4 text-xl font-bold text-ink">Thank you. Your enquiry has been sent.</h3>
         <p className="mt-2 text-ink-soft">
           We will reply using your preferred contact method to arrange a short conversation.

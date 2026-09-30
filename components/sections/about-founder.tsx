@@ -17,7 +17,7 @@ export function AboutFounder() {
           className="mx-auto aspect-[3/4] w-full max-w-[320px] rounded-xl object-cover lg:max-w-none"
         />
         <div>
-          <p className="mb-3 text-sm font-semibold tracking-wide text-teal">About TurboData</p>
+          <p className="mb-3 text-sm font-semibold tracking-wide text-brand">About TurboData</p>
           <h2 id="founder-title" className="text-3xl font-bold leading-tight text-ink sm:text-4xl">
             Analytics that connect the numbers to the way the business actually works.
           </h2>

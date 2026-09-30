@@ -29,7 +29,7 @@ export default function OpengraphImage() {
             Business analytics and operations improvement for Ontario SMEs
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 24, color: "#8fd3c9" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 24, color: "#8fb8ff" }}>
           <div style={{ width: 48, height: 6, background: "#0056d2", borderRadius: 3 }} />
           Sarnia-Lambton, Ontario · turbodata.co
         </div>

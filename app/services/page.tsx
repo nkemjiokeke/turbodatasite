@@ -81,7 +81,7 @@ function DetailList({ term, items }: { term: string; items: string[] }) {
     <div>
       <dt className="font-bold text-ink">{term}</dt>
       <dd className="mt-2">
-        <ul className="list-disc space-y-1.5 pl-5 leading-relaxed text-ink-soft marker:text-teal">
+        <ul className="list-disc space-y-1.5 pl-5 leading-relaxed text-ink-soft marker:text-brand">
           {items.map((item) => (
             <li key={item}>{item}</li>
           ))}

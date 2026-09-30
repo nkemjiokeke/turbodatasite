@@ -49,7 +49,7 @@ export function HowItWorks() {
       <div className="mt-12">
         <StepList />
       </div>
-      <p className="mt-8 max-w-3xl border-l-4 border-teal pl-4 leading-relaxed text-ink-soft">
+      <p className="mt-8 max-w-3xl border-l-4 border-brand pl-4 leading-relaxed text-ink-soft">
         Not every business needs a major software project. Sometimes the highest-value improvement is a clearer process,
         better reporting, or a management routine that happens consistently.
       </p>

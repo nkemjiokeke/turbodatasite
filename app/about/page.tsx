@@ -65,7 +65,7 @@ export default function AboutPage() {
             <ul aria-labelledby="credentials-label" className="mt-3 space-y-2 text-ink-soft">
               {credentials.map((c) => (
                 <li key={c} className="flex gap-3">
-                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
                   {c}
                 </li>
               ))}

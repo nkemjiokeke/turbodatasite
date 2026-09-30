@@ -39,7 +39,7 @@ export function Eyebrow({ children, dark = false }: { children: React.ReactNode;
     <p
       className={cn(
         "mb-3 text-sm font-semibold tracking-wide",
-        dark ? "text-[#8fd3c9]" : "text-teal",
+        dark ? "text-[#8fb8ff]" : "text-brand",
       )}
     >
       {children}
@@ -126,7 +126,7 @@ export function IconBadge({ icon: Icon, dark = false }: { icon: LucideIcon; dark
       aria-hidden="true"
       className={cn(
         "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg",
-        dark ? "bg-white/10 text-[#8fd3c9]" : "bg-teal-soft text-teal",
+        dark ? "bg-white/10 text-[#8fb8ff]" : "bg-brand-soft text-brand",
       )}
     >
       <Icon className="h-5 w-5" strokeWidth={1.75} />

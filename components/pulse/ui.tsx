@@ -32,7 +32,7 @@ export function ProgressBar({ value, label, dark = false }: { value: number; lab
         aria-valuenow={value}
         className={cn("h-2 w-full overflow-hidden rounded-full", dark ? "bg-white/15" : "bg-paper-2")}
       >
-        <div className="h-full rounded-full bg-teal transition-[width] duration-300" style={{ width: `${value}%` }} />
+        <div className="h-full rounded-full bg-brand transition-[width] duration-300" style={{ width: `${value}%` }} />
       </div>
     </div>
   )

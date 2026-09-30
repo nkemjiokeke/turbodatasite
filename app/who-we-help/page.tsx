@@ -33,7 +33,7 @@ export default function WhoWeHelpPage() {
               <ul className="mt-3 space-y-2.5">
                 {s.problems.map((p) => (
                   <li key={p} className="flex gap-3 leading-relaxed text-ink-soft">
-                    <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-teal" />
+                    <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
                     {p}
                   </li>
                 ))}

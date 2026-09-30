@@ -40,7 +40,7 @@ export default function PulsePage() {
       <section aria-labelledby="pulse-hero-title" className="border-b border-line bg-paper">
         <Container className="py-14 sm:py-20">
           <div className="max-w-3xl">
-            <p className="mb-4 inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-teal">
+            <p className="mb-4 inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-brand">
               <PulseMark className="h-5 w-5" />
               TurboData Pulse
             </p>
