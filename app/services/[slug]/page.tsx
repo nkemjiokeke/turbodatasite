@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, Check, Clock, X } from "lucide-react"
@@ -39,16 +40,33 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               All services
             </Link>
           </nav>
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3">
-              <IconBadge icon={s.icon} />
-              <p className="text-sm font-semibold tracking-wide text-brand">{s.title}</p>
+          <div className={s.heroImage ? "grid items-center gap-10 lg:grid-cols-2 lg:gap-16" : "max-w-3xl"}>
+            <div className={s.heroImage ? undefined : "max-w-3xl"}>
+              <div className="flex items-center gap-3">
+                <IconBadge icon={s.icon} />
+                <p className="text-sm font-semibold tracking-wide text-brand">{s.title}</p>
+              </div>
+              <h1 className="mt-5 text-4xl font-bold leading-[1.12] text-ink sm:text-5xl">{s.headline}</h1>
+              <p className="mt-5 text-lg leading-relaxed text-ink-soft sm:text-xl">{s.summary}</p>
+              <div className="mt-8">
+                <ButtonLink href={site.primaryCta.href}>Book a conversation</ButtonLink>
+              </div>
             </div>
-            <h1 className="mt-5 text-4xl font-bold leading-[1.12] text-ink sm:text-5xl">{s.headline}</h1>
-            <p className="mt-5 text-lg leading-relaxed text-ink-soft sm:text-xl">{s.summary}</p>
-            <div className="mt-8">
-              <ButtonLink href={site.primaryCta.href}>Book a conversation</ButtonLink>
-            </div>
+            {s.heroImage && (
+              <div
+                className="relative mx-auto w-full overflow-hidden rounded-xl border border-line bg-white"
+                style={{ aspectRatio: `${s.heroImage.width} / ${s.heroImage.height}` }}
+              >
+                <Image
+                  src={s.heroImage.src}
+                  alt={s.heroImage.alt}
+                  fill
+                  sizes="(min-width: 1024px) 560px, 100vw"
+                  priority
+                  className="object-contain"
+                />
+              </div>
+            )}
           </div>
         </Container>
       </section>

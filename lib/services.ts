@@ -22,6 +22,7 @@ export type Service = {
   notIncluded: string[]
   timeline: string
   nextStep: string
+  heroImage?: { src: string; alt: string; width: number; height: number }
 }
 
 export const services: Service[] = [
@@ -98,6 +99,12 @@ export const services: Service[] = [
     ],
     timeline: "Indicative: two to four weeks, depending on data quality and the number of business lines.",
     nextStep: "Start with a conversation about the profitability question you most need answered.",
+    heroImage: {
+      src: "/services/financial-performance-analysis.jpeg",
+      alt: "Profitability and performance dashboard showing revenue, cost of goods sold, and gross profit, with profitability broken down by product, customer, and job.",
+      width: 1408,
+      height: 768,
+    },
   },
   {
     slug: "process-improvement",
@@ -134,6 +141,12 @@ export const services: Service[] = [
     ],
     timeline: "Indicative: three to six weeks per workflow, including rollout support.",
     nextStep: "Tell us which process is causing the most friction and we will suggest a starting scope.",
+    heroImage: {
+      src: "/services/process-improvement.jpeg",
+      alt: "Diagram comparing an inefficient workflow with bottlenecks, manual data entry, and late delivery against a streamlined workflow with automated approval, centralised data, and on-time delivery.",
+      width: 1408,
+      height: 768,
+    },
   },
   {
     slug: "business-intelligence-reporting",
@@ -170,6 +183,12 @@ export const services: Service[] = [
     ],
     timeline: "Indicative: three to six weeks for a first management dashboard and KPI set.",
     nextStep: "Share which decisions feel hardest to make with your current reporting.",
+    heroImage: {
+      src: "/services/business-intelligence-reporting.jpeg",
+      alt: "Executive performance dashboard showing total revenue, gross margin, operating profit, revenue trends, regional sales, and top accounts in one view.",
+      width: 1408,
+      height: 768,
+    },
   },
   {
     slug: "automation-advisory",
@@ -205,6 +224,12 @@ export const services: Service[] = [
     ],
     timeline: "Indicative: two to three weeks for an opportunity map.",
     nextStep: "Tell us which tasks take the most repetitive effort today.",
+    heroImage: {
+      src: "/services/automation-advisory.jpeg",
+      alt: "An operations team member reviewing automated production and performance data on a handheld tablet on a factory floor.",
+      width: 1408,
+      height: 768,
+    },
   },
   {
     slug: "fractional-analytics-operations-support",
