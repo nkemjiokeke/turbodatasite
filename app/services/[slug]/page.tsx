@@ -11,7 +11,8 @@ import { pageMetadata } from "@/lib/seo"
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }))
+  // "operations-diagnostic" has its own dedicated route at app/services/operations-diagnostic/.
+  return services.filter((s) => s.slug !== "operations-diagnostic").map((s) => ({ slug: s.slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
