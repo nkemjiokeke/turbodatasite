@@ -21,16 +21,16 @@ export default function ServicesPage() {
         title="Practical analysis and improvement for established businesses"
         intro="TurboData helps businesses understand performance, identify operational friction, and make improvements that can be measured."
       >
-        <nav aria-label="Services on this page" className="mt-8">
+        <nav aria-label="Jump to a service" className="mt-8">
           <ul className="flex flex-wrap gap-2">
             {services.map((s) => (
               <li key={s.slug}>
-                <a
-                  href={`#${s.slug}`}
+                <Link
+                  href={`/services/${s.slug}`}
                   className="inline-flex rounded-full border border-line bg-white px-3.5 py-1.5 text-sm font-medium text-ink hover:border-ink/40"
                 >
                   {s.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
