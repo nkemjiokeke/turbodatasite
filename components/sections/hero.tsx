@@ -30,12 +30,12 @@ export function Hero() {
               {site.serviceArea}
             </p>
           </div>
-          <div className="relative mx-auto aspect-[1597/985] w-full max-w-md overflow-hidden rounded-xl border border-line bg-white lg:max-w-none">
+          <div className="relative mx-auto aspect-[1038/422] w-full">
             <Image
               src="/hero-home-page.png"
               alt="Illustration of work flowing through a business from customer request to quote, scheduling, delivery, and invoicing, ending in business growth."
               fill
-              sizes="(min-width: 1024px) 560px, 100vw"
+              sizes="(min-width: 1024px) 640px, 100vw"
               priority
               className="object-contain"
             />
